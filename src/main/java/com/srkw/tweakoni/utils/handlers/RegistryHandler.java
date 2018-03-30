@@ -1,5 +1,7 @@
 package com.srkw.tweakoni.utils.handlers;
 
+import com.srkw.tweakoni.events.InteractEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
@@ -17,6 +19,8 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import static com.srkw.tweakoni.proxy.ClientProxy.registerKeyBindings;
+
 @EventBusSubscriber
 public class RegistryHandler {
 
@@ -24,19 +28,10 @@ public class RegistryHandler {
     }
 
     public static void initRegistries() {
-        registerKeyBindings();
+        MinecraftForge.EVENT_BUS.register(new InteractEvent());
     }
 
     public static void postInitRegistries() {
-    }
-
-
-    public static void registerKeyBindings() {
-        KeyBinding[] keyBindings = new KeyBinding[2];
-        keyBindings[0] = new KeyBinding("key.toggle.shift", Keyboard.KEY_L, "key.tweaktoni.category");
-        for (int i = 0; i < keyBindings.length; ++i) {
-            ClientRegistry.registerKeyBinding(keyBindings[i]);
-        }
     }
 
     @SubscribeEvent
