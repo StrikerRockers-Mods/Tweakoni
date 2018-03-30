@@ -8,6 +8,7 @@ import com.srkw.tweakoni.utils.interfaces.IHasModel;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,48 +20,37 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockBed extends Block implements IHasModel {
+public class BlockBed extends BlockBase {
 
-	public BlockBed(String name, Material materialIn) {
-		
-		super(materialIn);
-		
-		setSoundType(SoundType.METAL);
-		setHardness(5.0F);
-		setResistance(18000000F);
-		setHarvestLevel("pickaxe", 0);
-		setLightLevel(0F);
-		setLightOpacity(15);
-		setUnlocalizedName(name);
-		setRegistryName(name);
-		setCreativeTab(CreativeTabs.MISC);
-		
-		BlockInit.BLOCKS.add(this);
-		ItemInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
-		
-	}
+    public BlockBed(String name, Material materialIn) {
 
-	@Override
-	public void registerModels() {
-		
-		Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-		
-	} 
-	
-	 @Override
-	 public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-	        
-	    	if (worldIn.isRemote) {
-	           
-	    		playerIn.openGui(Tweakoni.instance, GuiHandler.BLOCK_BED, worldIn, pos.getX(), pos.getY(), pos.getZ());
-	    		
-	        } else {
-	           
-	        	return false;
-	        	
-	        }
-	        
-	    	return true;
-}
-	
+        super(materialIn, MapColor.AIR);
+
+        setSoundType(SoundType.METAL);
+        setHardness(5.0F);
+        setResistance(18000000F);
+        setHarvestLevel("pickaxe", 0);
+        setLightLevel(0F);
+        setLightOpacity(15);
+        setUnlocalizedName(name);
+        setRegistryName(name);
+        setCreativeTab(CreativeTabs.MISC);
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+
+        if (worldIn.isRemote) {
+
+            playerIn.openGui(Tweakoni.instance, GuiHandler.BLOCK_BED, worldIn, pos.getX(), pos.getY(), pos.getZ());
+
+        } else {
+
+            return false;
+
+        }
+
+        return true;
+    }
+
 }

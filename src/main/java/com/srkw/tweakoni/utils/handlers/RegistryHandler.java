@@ -1,5 +1,7 @@
 package com.srkw.tweakoni.utils.handlers;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
 import com.srkw.tweakoni.init.BlockInit;
@@ -18,65 +20,40 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @EventBusSubscriber
 public class RegistryHandler {
 
-	public static void preInitRegistries() {
+    public static void preInitRegistries() {
+    }
 
-		
-	}
+    public static void initRegistries() {
+        registerKeyBindings();
+    }
 
-	public static void initRegistries() {
-		
-		registerKeyBindings();
-		
-	}
+    public static void postInitRegistries() {
+    }
 
-	public static void postInitRegistries() {
 
-		
-	}
-	
-	public static void registerKeyBindings () {
-		
-		KeyBinding[] keyBindings = new KeyBinding[2]; 
-		 
-		keyBindings[0] = new KeyBinding("key.toggle.shift", Keyboard.KEY_L, "key.tweaktoni.category");
-		  
-		for (int i = 0; i < keyBindings.length; ++i) {
-		    ClientRegistry.registerKeyBinding(keyBindings[i]);
-		}
-		
-	}
-	
-	@SubscribeEvent
-	public static void onItemRegister(RegistryEvent.Register<Item> event)
-	{
-		event.getRegistry().registerAll(ItemInit.ITEMS.toArray(new Item[0]));
-	}
-	
-	@SubscribeEvent
-	public static void onBlockRegister(RegistryEvent.Register<Block> event)
-	{
-		event.getRegistry().registerAll(BlockInit.BLOCKS.toArray(new Block[0]));
+    public static void registerKeyBindings() {
+        KeyBinding[] keyBindings = new KeyBinding[2];
+        keyBindings[0] = new KeyBinding("key.toggle.shift", Keyboard.KEY_L, "key.tweaktoni.category");
+        for (int i = 0; i < keyBindings.length; ++i) {
+            ClientRegistry.registerKeyBinding(keyBindings[i]);
+        }
+    }
 
-	}
-	
-	@SubscribeEvent
-	public static void onModelRegister(ModelRegistryEvent event)
-	{
-		for(Item item : ItemInit.ITEMS)
-		{
-			if(item instanceof IHasModel)
-			{
-				((IHasModel)item).registerModels();
-			}
-		}
-		
-		for(Block block : BlockInit.BLOCKS)
-		{
-			if(block instanceof IHasModel)
-			{
-				((IHasModel)block).registerModels();
-			}
-		}
-	}
-	
+    @SubscribeEvent
+    public static void onItemRegister(RegistryEvent.Register<Item> event) {
+        ItemInit.register(event.getRegistry());
+        BlockInit.registerItemBlocks(event.getRegistry());
+    }
+
+    @SubscribeEvent
+    public static void onBlockRegister(RegistryEvent.Register<Block> event) {
+        BlockInit.register(event.getRegistry());
+    }
+
+    @SubscribeEvent
+    public static void onModelRegister(ModelRegistryEvent event) {
+        ItemInit.registerModels();
+        BlockInit.registerModels();
+    }
+
 }
