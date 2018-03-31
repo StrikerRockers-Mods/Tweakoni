@@ -1,10 +1,8 @@
 package com.srkw.tweakoni;
 
-import com.srkw.tweakoni.proxy.ClientProxy;
 import com.srkw.tweakoni.proxy.CommonProxy;
 import com.srkw.tweakoni.utils.Reference;
 import com.srkw.tweakoni.utils.handlers.RegistryHandler;
-
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -30,7 +28,6 @@ public class Tweakoni {
     @EventHandler
     public static void init(FMLInitializationEvent event) {
         RegistryHandler.initRegistries();
-        ClientProxy.registerKeyBindings();
     }
 
     @EventHandler

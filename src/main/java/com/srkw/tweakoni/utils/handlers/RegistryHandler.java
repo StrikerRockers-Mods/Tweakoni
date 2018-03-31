@@ -1,25 +1,16 @@
 package com.srkw.tweakoni.utils.handlers;
 
 import com.srkw.tweakoni.events.InteractEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
-
 import com.srkw.tweakoni.init.BlockInit;
 import com.srkw.tweakoni.init.ItemInit;
-import com.srkw.tweakoni.utils.interfaces.IHasModel;
-
+import com.srkw.tweakoni.network.PacketHandler;
 import net.minecraft.block.Block;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import static com.srkw.tweakoni.proxy.ClientProxy.registerKeyBindings;
 
 @EventBusSubscriber
 public class RegistryHandler {
@@ -29,6 +20,7 @@ public class RegistryHandler {
 
     public static void initRegistries() {
         MinecraftForge.EVENT_BUS.register(new InteractEvent());
+        PacketHandler.registerMessages("tweakoni");
     }
 
     public static void postInitRegistries() {

@@ -2,8 +2,8 @@ package com.srkw.tweakoni.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -47,10 +47,12 @@ public class PacketSendLoc implements IMessage {
             World world = playerEntity.getEntityWorld();
             if (world.isBlockLoaded(message.blockPos)) {
                 Block block = world.getBlockState(message.blockPos).getBlock();
-                Item item = playerEntity.getHeldItem(EnumHand.MAIN_HAND).getItem();
-                playerEntity.getHeldItem(EnumHand.MAIN_HAND).shrink(1);
-                BlockPos pos = message.blockPos.down();
-                world.setBlockState(pos,Block.getBlockFromItem(item).getDefaultState());
+                if (block == Blocks.AIR) {
+                    Item item = playerEntity.getHeldItem(EnumHand.MAIN_HAND).getItem();
+                    playerEntity.getHeldItem(EnumHand.MAIN_HAND).shrink(1);
+                    BlockPos pos = message.blockPos.down();
+                    world.setBlockState(pos, Block.getBlockFromItem(item).getDefaultState());
+                }
             }
         }
     }
