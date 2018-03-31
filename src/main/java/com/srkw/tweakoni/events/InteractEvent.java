@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import scala.Console;
 
 public class InteractEvent {
     @SideOnly(Side.CLIENT)
@@ -30,19 +31,6 @@ public class InteractEvent {
                 PacketHandler.INSTANCE.sendToServer(new PacketSendLoc());
             }
         }
-    }
-    
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public void onEvent(KeyInputEvent event) {
-    	
-    	KeyBinding shiftToggleInput = new KeyBinding("key.movement.toggleshift", Keyboard.KEY_L, "key.tweakoni.category");
-    	
-    	if (shiftToggleInput.isPressed()) {
-
-    		
-    		
-    	}
     }
     
 }

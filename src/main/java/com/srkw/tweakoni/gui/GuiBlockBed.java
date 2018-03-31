@@ -40,10 +40,10 @@ public class GuiBlockBed extends GuiScreen {
 	@Override
     protected void actionPerformed(GuiButton button) throws IOException {
 		
-		switch(button.id) {
+		//switch(button.id) {
 		
 		
-		}
+		//}
 	
 		super.actionPerformed(button);
         

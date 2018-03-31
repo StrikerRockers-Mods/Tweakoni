@@ -16,7 +16,7 @@ public class GuiHandler implements IGuiHandler {
 		
 		switch(ID) {
 		
-		case 0 : return null;
+		case 0 : return new GuiBlockBed();
 		
 		}
 		
