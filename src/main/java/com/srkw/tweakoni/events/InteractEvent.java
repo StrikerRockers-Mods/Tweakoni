@@ -2,9 +2,12 @@ package com.srkw.tweakoni.events;
 
 import com.srkw.tweakoni.network.PacketHandler;
 import com.srkw.tweakoni.network.PacketSendLoc;
+import com.srkw.tweakoni.network.PacketSetSneak;
 import com.srkw.tweakoni.proxy.ClientProxy;
 import com.srkw.tweakoni.utils.RayTrace;
 import net.minecraft.block.BlockMagma;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.DamageSource;
@@ -15,6 +18,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -43,4 +47,23 @@ public class InteractEvent {
             }
         }
     }
+
+    @SubscribeEvent
+    public static void onInteract(PlayerInteractEvent.EntityInteract event) {
+        if (event.getTarget().getClass() == EntityVillager.class) {
+            EntityLiving entity = (EntityLiving) event.getTarget();
+            if (!entity.getLeashed()) {
+                entity.setLeashHolder(event.getEntityPlayer(), true);
+            } else entity.clearLeashed(true, true);
+        }
+    }
+
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public static void onKeyPress(InputEvent.KeyInputEvent event) {
+        if (ClientProxy.d_shift.isPressed()) {
+            PacketHandler.INSTANCE.sendToServer(new PacketSetSneak());
+        }
+    }
+
 }

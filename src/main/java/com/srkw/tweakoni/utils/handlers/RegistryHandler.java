@@ -42,5 +42,4 @@ public class RegistryHandler {
         ItemInit.registerModels();
         BlockInit.registerModels();
     }
-
 }
