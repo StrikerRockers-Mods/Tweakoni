@@ -8,6 +8,7 @@ import com.srkw.tweakoni.utils.RayTrace;
 import net.minecraft.block.BlockMagma;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.DamageSource;
@@ -50,11 +51,14 @@ public class InteractEvent {
 
     @SubscribeEvent
     public static void onInteract(PlayerInteractEvent.EntityInteract event) {
-        if (event.getTarget().getClass() == EntityVillager.class) {
-            EntityLiving entity = (EntityLiving) event.getTarget();
-            if (!entity.getLeashed()) {
-                entity.setLeashHolder(event.getEntityPlayer(), true);
-            } else entity.clearLeashed(true, true);
+        if (event.getTarget() instanceof EntityVillager) {
+            if (event.getEntityPlayer().getHeldItemMainhand().getItem() == Items.LEAD) {
+                EntityLiving entity = (EntityLiving) event.getTarget();
+                if (!entity.getLeashed()) {
+                    entity.setLeashHolder(event.getEntityPlayer(), true);
+                    event.getEntityPlayer().getHeldItemMainhand().shrink(1);
+                } else entity.clearLeashed(true, true);
+            }
         }
     }
 
@@ -65,5 +69,4 @@ public class InteractEvent {
             PacketHandler.INSTANCE.sendToServer(new PacketSetSneak());
         }
     }
-
 }

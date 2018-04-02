@@ -1,5 +1,6 @@
 package com.srkw.tweakoni;
 
+import com.srkw.tweakoni.proxy.ClientProxy;
 import com.srkw.tweakoni.proxy.CommonProxy;
 import com.srkw.tweakoni.utils.Reference;
 import com.srkw.tweakoni.utils.handlers.RegistryHandler;
@@ -28,6 +29,7 @@ public class Tweakoni {
     @EventHandler
     public static void init(FMLInitializationEvent event) {
         RegistryHandler.initRegistries();
+        ClientProxy.registerKeyBindings();
     }
 
     @EventHandler
