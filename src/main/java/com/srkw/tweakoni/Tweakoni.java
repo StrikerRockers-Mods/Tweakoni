@@ -29,6 +29,7 @@ public class Tweakoni {
     @EventHandler
     public static void init(FMLInitializationEvent event) {
         RegistryHandler.initRegistries();
+        //noinspection MethodCallSideOnly
         ClientProxy.registerKeyBindings();
     }
 

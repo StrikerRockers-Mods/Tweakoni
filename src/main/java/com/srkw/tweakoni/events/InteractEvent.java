@@ -1,43 +1,26 @@
 package com.srkw.tweakoni.events;
 
-import com.srkw.tweakoni.network.PacketHandler;
-import com.srkw.tweakoni.network.PacketSendLoc;
-import com.srkw.tweakoni.network.PacketSetSneak;
-import com.srkw.tweakoni.proxy.ClientProxy;
-import com.srkw.tweakoni.utils.RayTrace;
+import com.srkw.tweakoni.capabilities.Provider;
 import net.minecraft.block.BlockMagma;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.InputEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
+import static com.srkw.tweakoni.utils.handlers.RegistryHandler.SHIFT_HANDLER_CAPABILITY;
 
 @Mod.EventBusSubscriber
 public class InteractEvent {
-    @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
-        if (event.getWorld().isRemote) {
-            Item item = event.getItemStack().getItem();
-            if (item instanceof ItemBlock && ClientProxy.block_below.isKeyDown()) {
-                RayTraceResult result = RayTrace.rayTrace(event.getWorld(), event.getEntityPlayer(), false);
-                if (result.sideHit == EnumFacing.UP) {
-                    PacketHandler.INSTANCE.sendToServer(new PacketSendLoc());
-                }
-            }
-        }
-    }
+
 
     @SubscribeEvent
     public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
@@ -63,10 +46,18 @@ public class InteractEvent {
     }
 
     @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public static void onKeyPress(InputEvent.KeyInputEvent event) {
-        if (ClientProxy.d_shift.isPressed()) {
-            PacketHandler.INSTANCE.sendToServer(new PacketSetSneak());
+    public static void onRegistrar(AttachCapabilitiesEvent<Entity> event) {
+        if (event.getObject() instanceof EntityPlayer)
+            event.addCapability(new ResourceLocation("srkw", "shift"), new Provider());
+    }
+
+    @SubscribeEvent
+    public static void onUpdate(LivingEvent event) {
+        if (event.getEntityLiving() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+            if (player.getCapability(SHIFT_HANDLER_CAPABILITY, null).getShift() == true && !player.isSneaking()) {
+                player.setSneaking(true);
+            } else player.setSneaking(false);
         }
     }
 }

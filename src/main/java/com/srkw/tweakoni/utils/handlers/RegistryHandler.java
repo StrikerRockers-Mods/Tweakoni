@@ -1,5 +1,8 @@
 package com.srkw.tweakoni.utils.handlers;
 
+import com.srkw.tweakoni.capabilities.DefaultShiftHandler;
+import com.srkw.tweakoni.capabilities.ShiftHandler;
+import com.srkw.tweakoni.capabilities.Storage;
 import com.srkw.tweakoni.events.InteractEvent;
 import com.srkw.tweakoni.init.BlockInit;
 import com.srkw.tweakoni.init.ItemInit;
@@ -8,6 +11,9 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -15,12 +21,16 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @EventBusSubscriber
 public class RegistryHandler {
 
+    @CapabilityInject(ShiftHandler.class)
+    public static final Capability<ShiftHandler> SHIFT_HANDLER_CAPABILITY = null;
+
     public static void preInitRegistries() {
     }
 
     public static void initRegistries() {
         MinecraftForge.EVENT_BUS.register(new InteractEvent());
         PacketHandler.registerMessages("tweakoni");
+        CapabilityManager.INSTANCE.register(ShiftHandler.class, new Storage(), DefaultShiftHandler.class);
     }
 
     public static void postInitRegistries() {
