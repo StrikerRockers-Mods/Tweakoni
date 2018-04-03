@@ -1,7 +1,6 @@
 package com.srkw.tweakoni.item;
 
 import com.srkw.tweakoni.Tweakoni;
-import com.srkw.tweakoni.utils.handlers.GuiHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -27,13 +26,7 @@ public class ItemSleepingBag extends Item {
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-
-        if (worldIn.isRemote) {
-
-            player.openGui(Tweakoni.instance, GuiHandler.BLOCK_BED, worldIn, pos.getX(), pos.getY(), pos.getZ());
-        }
-
-        if (!worldIn.isRemote) {
+                if (!worldIn.isRemote) {
             if (player.isRiding()) player.dismountRidingEntity();
 
             ObfuscationReflectionHelper.setPrivateValue(EntityPlayer.class, player, true, "sleeping", "field_71083_bS");

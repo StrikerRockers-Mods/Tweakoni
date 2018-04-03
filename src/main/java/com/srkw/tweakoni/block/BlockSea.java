@@ -21,6 +21,7 @@ public class BlockSea extends Block {
         super(materialIn);
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         this.setRegistryName("minecraft", "sea_lantern");
+        this.setUnlocalizedName("sea_lantern");
         this.setHardness(0.3F);
         setSoundType(SoundType.GLASS);
         setLightLevel(1.0F);

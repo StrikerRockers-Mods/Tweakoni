@@ -24,6 +24,5 @@ public class PacketHandler {
 
     public static void registerMessages() {
         INSTANCE.registerMessage(PacketSendLoc.Handler.class, PacketSendLoc.class, nextID(), SERVER);
-        INSTANCE.registerMessage(PacketSetSneak.Handler.class, PacketSetSneak.class, nextID(), SERVER);
     }
 }

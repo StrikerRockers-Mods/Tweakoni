@@ -2,7 +2,6 @@ package com.srkw.tweakoni.events;
 
 import com.srkw.tweakoni.network.PacketHandler;
 import com.srkw.tweakoni.network.PacketSendLoc;
-import com.srkw.tweakoni.network.PacketSetSneak;
 import com.srkw.tweakoni.proxy.ClientProxy;
 import com.srkw.tweakoni.utils.RayTrace;
 import net.minecraft.client.gui.ScaledResolution;
@@ -30,20 +29,5 @@ public class ClientEvents {
                 }
             }
         }
-    }
-
-    @SubscribeEvent
-    public static void onKeyPress(InputEvent.KeyInputEvent event) {
-        if (ClientProxy.d_shift.isPressed()) {
-            PacketHandler.INSTANCE.sendToServer(new PacketSetSneak());
-        }
-    }
-
-    @SubscribeEvent
-    public static void onRender(RenderGameOverlayEvent.Post event) {
-        ScaledResolution resolution = event.getResolution();
-        int height = resolution.getScaledHeight() / 100;
-        int width = resolution.getScaledWidth() / 100;
-
     }
 }
