@@ -58,6 +58,7 @@ public class JukeBoxHandler implements IItemHandlerModifiable {
         ItemStack stack = jukebox.getRecord();
         if (!simulate) {
             jukebox.setRecord(ItemStack.EMPTY);
+            jukebox.getWorld().playEvent(1010, jukebox.getPos(), 0);
             jukebox.getWorld().playRecord(jukebox.getPos(), null);
         }
         return stack;

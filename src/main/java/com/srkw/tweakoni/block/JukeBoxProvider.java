@@ -9,26 +9,24 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class JukeBoxProvider implements ICapabilityProvider{
+public class JukeBoxProvider implements ICapabilityProvider {
 
     private TileEntityJukebox jukebox;
 
-    public JukeBoxProvider(TileEntityJukebox jukebox){
-        this.jukebox=jukebox;
+    public JukeBoxProvider(TileEntityJukebox jukebox) {
+        this.jukebox = jukebox;
     }
 
     @Override
     public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing enumFacing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return true;
-        }
-        return false;
+        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
     }
 
     @Nullable
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing enumFacing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            //noinspection SingleStatementInBlock
             return (T) new JukeBoxHandler(jukebox);
         }
         return null;

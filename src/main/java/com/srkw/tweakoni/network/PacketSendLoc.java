@@ -19,6 +19,12 @@ import static net.minecraft.client.Minecraft.getMinecraft;
 public class PacketSendLoc implements IMessage {
     private BlockPos blockPos;
 
+    public PacketSendLoc() {
+        //noinspection MethodCallSideOnly
+        RayTraceResult mouseOver = getMinecraft().objectMouseOver;
+        blockPos = mouseOver.getBlockPos();
+    }
+
     @Override
     public void fromBytes(ByteBuf buf) {
         blockPos = BlockPos.fromLong(buf.readLong());
@@ -27,12 +33,6 @@ public class PacketSendLoc implements IMessage {
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeLong(blockPos.toLong());
-    }
-
-    public PacketSendLoc() {
-        //noinspection MethodCallSideOnly
-        RayTraceResult mouseOver = getMinecraft().objectMouseOver;
-        blockPos = mouseOver.getBlockPos();
     }
 
     public static class Handler implements IMessageHandler<PacketSendLoc, IMessage> {

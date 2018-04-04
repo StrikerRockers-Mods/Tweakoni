@@ -6,14 +6,13 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import static net.minecraftforge.fml.relauncher.Side.SERVER;
 
 public class PacketHandler {
-    private static int packetId = 0;
-
     public static SimpleNetworkWrapper INSTANCE = null;
+    private static int packetId = 0;
 
     public PacketHandler() {
     }
 
-    public static int nextID() {
+    private static int nextID() {
         return packetId++;
     }
 
@@ -22,7 +21,7 @@ public class PacketHandler {
         registerMessages();
     }
 
-    public static void registerMessages() {
+    private static void registerMessages() {
         INSTANCE.registerMessage(PacketSendLoc.Handler.class, PacketSendLoc.class, nextID(), SERVER);
     }
 }
