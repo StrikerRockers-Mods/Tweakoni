@@ -1,17 +1,19 @@
 package com.srkw.tweakoni.block;
 
-import net.minecraft.block.BlockJukebox;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import javax.annotation.Nonnull;
 
+import static net.minecraft.block.BlockJukebox.TileEntityJukebox;
+
 public class JukeBoxHandler implements IItemHandlerModifiable {
 
-    private BlockJukebox.TileEntityJukebox jukebox;
+    private TileEntityJukebox jukebox;
 
-    public JukeBoxHandler(BlockJukebox.TileEntityJukebox tileEntityJukebox) {
+    public JukeBoxHandler(TileEntityJukebox tileEntityJukebox) {
         this.jukebox = tileEntityJukebox;
     }
 
@@ -42,6 +44,7 @@ public class JukeBoxHandler implements IItemHandlerModifiable {
         if (stack.getItem() instanceof ItemRecord && getStackInSlot(slot).isEmpty()) {
             if (!simulate) {
                 jukebox.setRecord(stack);
+                jukebox.getWorld().playEvent(null, 1010, jukebox.getPos(), Item.getIdFromItem(stack.getItem()));
             }
             return ItemStack.EMPTY;
         }
@@ -55,6 +58,7 @@ public class JukeBoxHandler implements IItemHandlerModifiable {
         ItemStack stack = jukebox.getRecord();
         if (!simulate) {
             jukebox.setRecord(ItemStack.EMPTY);
+            jukebox.getWorld().playRecord(jukebox.getPos(), null);
         }
         return stack;
     }
