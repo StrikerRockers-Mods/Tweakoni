@@ -1,18 +1,24 @@
 package com.srkw.tweakoni.events;
 
+import com.srkw.tweakoni.block.JukeBoxProvider;
+import net.minecraft.block.BlockJukebox;
+import net.minecraft.block.BlockJukebox.TileEntityJukebox;
 import net.minecraft.block.BlockMagma;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Items;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
-public class CommonEvents {
+    @Mod.EventBusSubscriber
+    public class CommonEvents {
 
     @SubscribeEvent
     public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
@@ -36,4 +42,12 @@ public class CommonEvents {
             }
         }
     }
+
+    @SubscribeEvent
+    public static void onAttach(AttachCapabilitiesEvent<TileEntity> event){
+        if (event.getObject() instanceof TileEntityJukebox){
+            event.addCapability(new ResourceLocation("srkw","itemhandler"),new JukeBoxProvider((TileEntityJukebox) event.getObject()));
+        }
+    }
+
 }
