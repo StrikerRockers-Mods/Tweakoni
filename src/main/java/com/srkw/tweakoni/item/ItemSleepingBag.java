@@ -26,7 +26,7 @@ public class ItemSleepingBag extends Item {
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-                if (!worldIn.isRemote) {
+        if (!worldIn.isRemote) {
             if (player.isRiding()) player.dismountRidingEntity();
 
             ObfuscationReflectionHelper.setPrivateValue(EntityPlayer.class, player, true, "sleeping", "field_71083_bS");

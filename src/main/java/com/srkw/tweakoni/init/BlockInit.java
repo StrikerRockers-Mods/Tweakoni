@@ -15,7 +15,7 @@ public class BlockInit {
         );
     }
 
-    public static void registerModels(){
+    public static void registerModels() {
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry) {
