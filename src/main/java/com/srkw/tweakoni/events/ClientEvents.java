@@ -45,10 +45,11 @@ public class ClientEvents {
             int y = resolution.getScaledHeight() / 100;
             for (ItemStack stack : mc.player.inventory.armorInventory) {
                 if (stack.getItem() instanceof ItemElytra) {
-                    String text = "Elytra : " + stack.getItemDamage() + " / " + stack.getMaxDamage();
-                    mc.fontRenderer.drawStringWithShadow(text, x / 95, y / 98, 0xffffff);
+                    int i = stack.getMaxDamage() - stack.getItemDamage();
+                    String text = "Elytra : " + i + " / " + stack.getMaxDamage();
+                    mc.fontRenderer.drawStringWithShadow(text, x * 95, y * 100, 0xffffff);
                     RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
-                    //itemRenderer.renderItemAndEffectIntoGUI(stack, x / 94, y / 98);
+                    itemRenderer.renderItemAndEffectIntoGUI(stack, x * 94, y * 100);
                 }
             }
         }
