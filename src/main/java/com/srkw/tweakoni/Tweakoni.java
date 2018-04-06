@@ -1,8 +1,6 @@
 package com.srkw.tweakoni;
 
-import com.srkw.tweakoni.proxy.ClientProxy;
 import com.srkw.tweakoni.proxy.CommonProxy;
-import com.srkw.tweakoni.utils.Reference;
 import com.srkw.tweakoni.utils.handlers.RegistryHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -12,13 +10,21 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION)
+import static com.srkw.tweakoni.Tweakoni.*;
+
+@Mod(modid = MOD_ID, name = NAME, version = VERSION)
 public class Tweakoni {
+
+    public static final String MOD_ID = "tweakoni";
+    public static final String NAME = "Mumbo Tweakoni";
+    public static final String VERSION = "1.1";
+    public static final String CLIENT = "com.srkw.tweakoni.proxy.ClientProxy";
+    public static final String COMMON = "com.srkw.tweakoni.proxy.CommonProxy";
 
     @Instance
     public static Tweakoni instance;
 
-    @SidedProxy(clientSide = Reference.CLIENT, serverSide = Reference.COMMON)
+    @SidedProxy(clientSide = CLIENT, serverSide = COMMON)
     public static CommonProxy proxy;
 
     @EventHandler
@@ -29,8 +35,7 @@ public class Tweakoni {
     @EventHandler
     public static void init(FMLInitializationEvent event) {
         RegistryHandler.initRegistries();
-        //noinspection MethodCallSideOnly
-        ClientProxy.registerKeyBindings();
+        proxy.registerKeyBindings();
     }
 
     @EventHandler
