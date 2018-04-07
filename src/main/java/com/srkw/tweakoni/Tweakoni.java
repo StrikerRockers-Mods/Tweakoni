@@ -4,6 +4,10 @@ import com.srkw.tweakoni.proxy.CommonProxy;
 import com.srkw.tweakoni.utils.handlers.RegistryHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.*;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import static com.srkw.tweakoni.Tweakoni.*;
 
