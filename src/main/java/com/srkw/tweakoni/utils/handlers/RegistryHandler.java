@@ -1,7 +1,6 @@
 package com.srkw.tweakoni.utils.handlers;
 
 import com.srkw.tweakoni.events.CommonEvents;
-import com.srkw.tweakoni.init.BlockInit;
 import com.srkw.tweakoni.init.ItemInit;
 import com.srkw.tweakoni.network.PacketHandler;
 import net.minecraft.block.Block;
@@ -11,6 +10,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import static com.srkw.tweakoni.init.BlockInit.*;
 
 @EventBusSubscriber
 public class RegistryHandler {
@@ -30,17 +31,17 @@ public class RegistryHandler {
     @SubscribeEvent
     public static void onItemRegister(RegistryEvent.Register<Item> event) {
         ItemInit.register(event.getRegistry());
-        BlockInit.registerItemBlocks(event.getRegistry());
+        registerItemBlocks(event.getRegistry());
     }
 
     @SubscribeEvent
     public static void onBlockRegister(RegistryEvent.Register<Block> event) {
-        BlockInit.register(event.getRegistry());
+        register(event.getRegistry());
     }
 
     @SubscribeEvent
     public static void onModelRegister(ModelRegistryEvent event) {
         ItemInit.registerModels();
-        BlockInit.registerModels();
+        registerModels();
     }
 }
