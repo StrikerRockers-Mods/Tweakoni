@@ -5,9 +5,13 @@ import com.srkw.tweakoni.init.ItemInit;
 import com.srkw.tweakoni.network.PacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -44,4 +48,9 @@ public class RegistryHandler {
         ItemInit.registerModels();
         registerModels();
     }
+    
+    //public static void checkSpawn (CheckSpawn event) {
+    	
+    //}
+
 }
