@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import static com.srkw.tweakoni.Tweakoni.MOD_ID;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber()
 public class CommonEvents {
 
     @SubscribeEvent
@@ -36,13 +36,15 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onInteract(PlayerInteractEvent.EntityInteract event) {
-        if (event.getTarget() instanceof EntityVillager) {
-            if (event.getEntityPlayer().getHeldItemMainhand().getItem() == Items.LEAD) {
-                EntityLiving entity = (EntityLiving) event.getTarget();
-                if (!entity.getLeashed()) {
-                    entity.setLeashHolder(event.getEntityPlayer(), true);
-                    event.getEntityPlayer().getHeldItemMainhand().shrink(1);
-                } else entity.clearLeashed(true, true);
+        if (!event.getEntity().getEntityWorld().isRemote) {
+            if (event.getTarget() instanceof EntityVillager) {
+                if (event.getEntityPlayer().getHeldItemMainhand().getItem() == Items.LEAD) {
+                    EntityLiving entity = (EntityLiving) event.getTarget();
+                    if (!entity.getLeashed()) {
+                        entity.setLeashHolder(event.getEntityPlayer(), true);
+                        event.getEntityPlayer().getHeldItemMainhand().shrink(1);
+                    } else entity.clearLeashed(true, true);
+                }
             }
         }
     }

@@ -1,31 +1,20 @@
 {
-    "type": "minecraft:crafting_shaped",
-    
-    "pattern":
-    [
-        "  B",
-        " A ",
-        "A  "
-
-    ],
-    
-    "key":
-    {
-        "A":
-        {
-            "item": "minecraft:stick"
-        },
-    
-    "B":
-        {
-            "item": "minecraft:lead"
-        }
-
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  B",
+    " A ",
+    "A  "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:stick"
     },
-        
-    "result":
-    {
-        "item": "tweakoni:rotator",
-        "count": 1
+    "B": {
+      "item": "minecraft:lead"
     }
+  },
+  "result": {
+    "item": "tweakoni:rotator",
+    "count": 1
+  }
 }

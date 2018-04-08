@@ -17,9 +17,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import scala.Console;
 
-@SuppressWarnings("ALL")
 @Mod.EventBusSubscriber
 public class ClientEvents {
 
@@ -33,7 +31,6 @@ public class ClientEvents {
                 RayTraceResult result = RayTrace.rayTrace(event.getWorld(), event.getEntityPlayer(), false);
                 if (result.sideHit == EnumFacing.UP) {
                     PacketHandler.INSTANCE.sendToServer(new PacketSendLoc());
-                    Console.println("Placing under");
                 }
             }
         }
