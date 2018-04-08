@@ -40,8 +40,6 @@ public class TESpawnBlocker extends TileEntity implements ITickable {
 			if(entity instanceof EntityZombie||entity instanceof EntitySpider||entity instanceof EntityCreeper||entity instanceof EntitySkeleton||entity instanceof EntitySlime||entity instanceof EntityEnderman)
 				entity.setDead();
 			
-			Console.println("got it");
-			
 		}
 		
 	}
