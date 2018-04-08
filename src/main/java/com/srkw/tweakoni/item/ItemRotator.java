@@ -22,7 +22,7 @@ public class ItemRotator extends Item {
 	public ItemRotator(String name) {
 		
 		super();
-        setCreativeTab(CreativeTabs.MISC);
+        setCreativeTab(CreativeTabs.TOOLS);
         setMaxStackSize(1);
 		setMaxDamage(50);
         setUnlocalizedName(name);

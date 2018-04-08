@@ -15,29 +15,28 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import scala.Console;
 
 public class BlockSpawnBlocker extends Block implements ITickable {
 
 	private World world;
 	private BlockPos blockPos;
 	
-	public BlockSpawnBlocker(Material materialIn, String name) {
+	public BlockSpawnBlocker(Material materialIn) {
 		
 		super(materialIn);
 		setSoundType(SoundType.METAL);
 		setHardness(5.0F);
 		setResistance(18000000F);
 		setHarvestLevel("pickaxe", 0);
-		setLightLevel(0F);
-		setLightOpacity(15);
-		setUnlocalizedName(name);
-		setRegistryName(name);
+		setUnlocalizedName("blocker");
+		setRegistryName("blocker");
 		setCreativeTab(CreativeTabs.MISC);
 		
 	}
 	
     public void registerItemModel() {
-        Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "spawn_blocker");
+        Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "blocker");
     }
 
 	@Override
