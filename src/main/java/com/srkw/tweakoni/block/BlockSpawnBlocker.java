@@ -17,6 +17,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -44,12 +45,10 @@ public class BlockSpawnBlocker extends Block implements ITileEntityProvider {
         Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "blocker");
     }
 	
-	@Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-    	
-    	world = worldIn;
-    	blockPos = pos;
-    	
+    @Override
+    public BlockRenderLayer getBlockLayer()
+    {
+        return BlockRenderLayer.SOLID;
     }
 
 	@Override

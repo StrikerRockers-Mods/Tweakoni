@@ -16,7 +16,10 @@ public class TESpawnBlocker extends TileEntity implements ITickable {
 	
 	@Override
 	public void update() {
-	
+		
+		//Update the TileEntity
+		markDirty();
+		
 		//Sets the first corner of the box
 		int x1 = world.getChunkFromBlockCoords(pos).getPos().getXStart() - 16;
 		int y1 = 0;
@@ -37,7 +40,7 @@ public class TESpawnBlocker extends TileEntity implements ITickable {
 		//Loops through the entity list and kills all the unwanted ones
 		for(Entity entity : list) {
 			
-			if(entity instanceof EntityZombie||entity instanceof EntitySpider||entity instanceof EntityCreeper||entity instanceof EntitySkeleton||entity instanceof EntitySlime||entity instanceof EntityEnderman)
+			if(entity instanceof EntityMob)
 				entity.setDead();
 			
 		}
