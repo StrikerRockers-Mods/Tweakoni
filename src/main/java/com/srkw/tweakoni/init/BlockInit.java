@@ -1,6 +1,7 @@
 package com.srkw.tweakoni.init;
 
 import com.srkw.tweakoni.Tweakoni;
+import com.srkw.tweakoni.block.BlockCarpet;
 import com.srkw.tweakoni.block.BlockPistonMovingNew;
 import com.srkw.tweakoni.block.BlockSea;
 import com.srkw.tweakoni.block.BlockSpawnBlocker;
@@ -15,10 +16,11 @@ public class BlockInit {
     public static BlockSea sea_lantern = new BlockSea(Material.ROCK);
     public static Block PIS_MOVING = new BlockPistonMovingNew();
     public static BlockSpawnBlocker SPAWN_BLOCKER = new BlockSpawnBlocker(Material.IRON);
+    public static BlockCarpet CARPET = new BlockCarpet();
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
-                sea_lantern, PIS_MOVING, SPAWN_BLOCKER
+                sea_lantern, PIS_MOVING, SPAWN_BLOCKER, CARPET
         );
     }
 
