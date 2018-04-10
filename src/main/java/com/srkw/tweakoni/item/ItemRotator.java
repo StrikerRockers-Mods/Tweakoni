@@ -3,6 +3,8 @@ package com.srkw.tweakoni.item;
 import java.util.Set;
 
 import com.srkw.tweakoni.Tweakoni;
+import com.srkw.tweakoni.proxy.ClientProxy;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -37,7 +39,7 @@ public class ItemRotator extends Item {
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        
+    	
     	//Declaring reference variables
     	Block block = worldIn.getBlockState(pos).getBlock();
     	IBlockState startState = worldIn.getBlockState(pos);
@@ -60,7 +62,7 @@ public class ItemRotator extends Item {
                 worldIn.playSound(player, pos, soundtype.getHitSound(), SoundCategory.BLOCKS, soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F);
                 
                 //Force the arm to swing
-            	player.swingArm(hand);
+            	player.swingArm(hand);         
             	
             	return EnumActionResult.SUCCESS;
             	

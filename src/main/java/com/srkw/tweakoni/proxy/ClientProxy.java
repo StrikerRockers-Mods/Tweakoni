@@ -11,13 +11,15 @@ import org.lwjgl.input.Keyboard;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
-
-    public static KeyBinding d_shift = new KeyBinding("key.toggle.d_shift", Keyboard.KEY_L, "key.tweaktoni.category");
+	
+	public static KeyBinding d_shift = new KeyBinding("key.toggle.d_shift", Keyboard.KEY_L, "key.tweaktoni.category");
     public static KeyBinding block_below = new KeyBinding("key.toggle.bb", Keyboard.KEY_LMENU, "key.tweaktoni.category");
+    public static KeyBinding item_frame = new KeyBinding("key.toggle.frame", Keyboard.KEY_B, "key.tweaktoni.category");
 
     public void registerKeyBindings() {
         ClientRegistry.registerKeyBinding(d_shift);
         ClientRegistry.registerKeyBinding(block_below);
+        ClientRegistry.registerKeyBinding(item_frame);
     }
 
     @Override
