@@ -17,8 +17,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import static net.minecraft.client.Minecraft.getMinecraft;
 
 public class PacketSendLoc implements IMessage {
-	
-	private BlockPos blockPos;
+
+    private BlockPos blockPos;
 
     public PacketSendLoc() {
         //noinspection MethodCallSideOnly
@@ -50,10 +50,10 @@ public class PacketSendLoc implements IMessage {
                 Block block = world.getBlockState(message.blockPos.down()).getBlock();
                 if (block == Blocks.AIR || block == Blocks.WATER || block == Blocks.LAVA) {
                     Item item = playerEntity.getHeldItem(EnumHand.MAIN_HAND).getItem();
-                    
-                    if(!playerEntity.isCreative())
-                    	playerEntity.getHeldItem(EnumHand.MAIN_HAND).shrink(1);
-                    
+
+                    if (!playerEntity.isCreative())
+                        playerEntity.getHeldItem(EnumHand.MAIN_HAND).shrink(1);
+
                     BlockPos pos = message.blockPos.down();
                     world.setBlockState(pos, Block.getBlockFromItem(item).getDefaultState());
                 }

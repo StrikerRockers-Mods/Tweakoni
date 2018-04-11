@@ -12,8 +12,8 @@
     "B": {
       "item": "minecraft:diamond_sword"
     },
-    "C" : {
-        "item": "minecraft:iron_bars"
+    "C": {
+      "item": "minecraft:iron_bars"
     }
   },
   "result": {
