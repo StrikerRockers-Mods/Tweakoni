@@ -42,9 +42,11 @@ public class ClientEvents {
     @SubscribeEvent
     public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
         if (event.getWorld().isRemote && event.getTarget() instanceof EntityItemFrame) {
-            EntityItemFrame frame = (EntityItemFrame) event.getTarget();
             event.setCanceled(true);
-            PacketHandler.INSTANCE.sendToServer(new PacketItemRotate());
+            if (ClientProxy.item_frame.isKeyDown()) {
+                EntityItemFrame frame = (EntityItemFrame) event.getTarget();
+                PacketHandler.INSTANCE.sendToServer(new PacketItemRotate());
+            }
         }
     }
 
