@@ -14,9 +14,11 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ItemRotator extends Item {
+public class ItemRotator extends Item
+{
 
-    public ItemRotator(String name) {
+    public ItemRotator(String name)
+    {
 
         super();
         setCreativeTab(CreativeTabs.TOOLS);
@@ -28,18 +30,21 @@ public class ItemRotator extends Item {
 
     }
 
-    public void registerItemModel() {
+    public void registerItemModel()
+    {
         Tweakoni.proxy.registerItemRenderer(this, 0, "rotator");
     }
 
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    {
 
         //Declaring reference variables
         Block block = worldIn.getBlockState(pos).getBlock();
         IBlockState startState = worldIn.getBlockState(pos);
 
-        if (player.isAllowEdit() && hand == EnumHand.MAIN_HAND) {
+        if (player.isAllowEdit() && hand == EnumHand.MAIN_HAND)
+        {
 
             //Rotate the block around the facing axis
             block.rotateBlock(worldIn, pos, facing);
@@ -47,7 +52,8 @@ public class ItemRotator extends Item {
             //Reference to check if the new block is different from the original one
             IBlockState endState = worldIn.getBlockState(pos);
 
-            if (startState != endState) {
+            if (startState != endState)
+            {
 
                 //Damage the item
                 player.getHeldItem(hand).damageItem(1, player);

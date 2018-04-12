@@ -11,9 +11,11 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockSpawnBlocker extends Block implements ITileEntityProvider {
+public class BlockSpawnBlocker extends Block implements ITileEntityProvider
+{
 
-    public BlockSpawnBlocker(Material materialIn) {
+    public BlockSpawnBlocker(Material materialIn)
+    {
 
         super(materialIn);
         setSoundType(SoundType.METAL);
@@ -26,12 +28,14 @@ public class BlockSpawnBlocker extends Block implements ITileEntityProvider {
 
     }
 
-    public void registerItemModel() {
+    public void registerItemModel()
+    {
         Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "blocker");
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createNewTileEntity(World worldIn, int meta)
+    {
 
         return new TESpawnBlocker();
     }

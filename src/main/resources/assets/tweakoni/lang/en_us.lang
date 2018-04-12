@@ -5,3 +5,21 @@ key.toggle.frame=Item Frame rotate
 item.rotator.name=Rotator
 tile.blocker.name=Blocker
 tile.sealantern.name=Sea Lantern
+
+//Carpet
+tile.carpet.white.name=White Carpet
+tile.carpet.orange.name=Orange Carpet
+tile.carpet.magenta.name=Magenta Carpet
+tile.carpet.lightBlue.name=Light Blue Carpet
+tile.carpet.yellow.name=Yellow Carpet
+tile.carpet.lime.name=Lime Carpet
+tile.carpet.pink.name=Pink Carpet
+tile.carpet.gray.name=Gray Carpet
+tile.carpet.silver.name=Light Gray Carpet
+tile.carpet.cyan.name=Cyan Carpet
+tile.carpet.purple.name=Purple Carpet
+tile.carpet.blue.name=Blue Carpet
+tile.carpet.brown.name=Brown Carpet
+tile.carpet.green.name=Green Carpet
+tile.carpet.red.name=Red Carpet
+tile.carpet.black.name=Black Carpet

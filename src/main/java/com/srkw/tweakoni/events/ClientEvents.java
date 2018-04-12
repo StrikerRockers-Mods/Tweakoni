@@ -22,17 +22,22 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @SuppressWarnings("ALL")
 @Mod.EventBusSubscriber
-public class ClientEvents {
+public class ClientEvents
+{
 
     private static Minecraft mc = Minecraft.getMinecraft();
 
     @SubscribeEvent
-    public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
-        if (event.getWorld().isRemote) {
+    public static void onRightClick(PlayerInteractEvent.RightClickBlock event)
+    {
+        if (event.getWorld().isRemote)
+        {
             Item item = event.getItemStack().getItem();
-            if (item instanceof ItemBlock && ClientProxy.block_below.isKeyDown()) {
+            if (item instanceof ItemBlock && ClientProxy.block_below.isKeyDown())
+            {
                 RayTraceResult result = RayTrace.rayTrace(event.getWorld(), event.getEntityPlayer(), false);
-                if (result.sideHit == EnumFacing.UP) {
+                if (result.sideHit == EnumFacing.UP)
+                {
                     PacketHandler.INSTANCE.sendToServer(new PacketSendLoc());
                 }
             }
@@ -40,10 +45,13 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
-        if (event.getWorld().isRemote && event.getTarget() instanceof EntityItemFrame) {
+    public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event)
+    {
+        if (event.getWorld().isRemote && event.getTarget() instanceof EntityItemFrame)
+        {
             event.setCanceled(true);
-            if (ClientProxy.item_frame.isKeyDown()) {
+            if (ClientProxy.item_frame.isKeyDown())
+            {
                 EntityItemFrame frame = (EntityItemFrame) event.getTarget();
                 PacketHandler.INSTANCE.sendToServer(new PacketItemRotate());
             }
@@ -51,18 +59,23 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public static void onOverlayRender(RenderGameOverlayEvent.Post event) {
-        if (event.getType().equals(RenderGameOverlayEvent.ElementType.TEXT)) {
+    public static void onOverlayRender(RenderGameOverlayEvent.Post event)
+    {
+        if (event.getType().equals(RenderGameOverlayEvent.ElementType.TEXT))
+        {
             ScaledResolution resolution = event.getResolution();
             int x = resolution.getScaledWidth() / 100;
             int y = resolution.getScaledHeight() / 100;
-            for (ItemStack stack : mc.player.inventory.armorInventory) {
-                if (stack.getItem() instanceof ItemElytra) {
+            for (ItemStack stack : mc.player.inventory.armorInventory)
+            {
+                if (stack.getItem() instanceof ItemElytra)
+                {
                     int i = stack.getMaxDamage() - stack.getItemDamage();
                     String text = "Elytra : " + i + " / " + stack.getMaxDamage();
                     int x1;
                     int y1;
-                    switch (ConfigHandler.elytraPos) {
+                    switch (ConfigHandler.elytraPos)
+                    {
                         case 1:
                             x1 = x / 95;
                             y1 = y / 100;

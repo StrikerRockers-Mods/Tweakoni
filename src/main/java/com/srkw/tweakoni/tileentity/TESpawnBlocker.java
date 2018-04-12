@@ -10,10 +10,12 @@ import net.minecraft.util.math.BlockPos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TESpawnBlocker extends TileEntity implements ITickable {
+public class TESpawnBlocker extends TileEntity implements ITickable
+{
 
     @Override
-    public void update() {
+    public void update()
+    {
         //Update the TileEntity
         markDirty();
         //Sets the first corner of the box
@@ -30,7 +32,8 @@ public class TESpawnBlocker extends TileEntity implements ITickable {
         List<Entity> list = new ArrayList<>();
         list = world.getEntitiesWithinAABBExcludingEntity(null, AABB);
         //Loops through the entity list and kills all the unwanted ones
-        for (Entity entity : list) {
+        for (Entity entity : list)
+        {
             if (entity instanceof EntityMob)
                 entity.setDead();
         }

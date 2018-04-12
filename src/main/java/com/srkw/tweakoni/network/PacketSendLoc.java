@@ -16,39 +16,48 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import static net.minecraft.client.Minecraft.getMinecraft;
 
-public class PacketSendLoc implements IMessage {
+public class PacketSendLoc implements IMessage
+{
 
     private BlockPos blockPos;
 
-    public PacketSendLoc() {
+    public PacketSendLoc()
+    {
         //noinspection MethodCallSideOnly
         RayTraceResult mouseOver = getMinecraft().objectMouseOver;
         blockPos = mouseOver.getBlockPos();
     }
 
     @Override
-    public void fromBytes(ByteBuf buf) {
+    public void fromBytes(ByteBuf buf)
+    {
         blockPos = BlockPos.fromLong(buf.readLong());
     }
 
     @Override
-    public void toBytes(ByteBuf buf) {
+    public void toBytes(ByteBuf buf)
+    {
         buf.writeLong(blockPos.toLong());
     }
 
-    public static class Handler implements IMessageHandler<PacketSendLoc, IMessage> {
+    public static class Handler implements IMessageHandler<PacketSendLoc, IMessage>
+    {
         @Override
-        public IMessage onMessage(PacketSendLoc message, MessageContext ctx) {
+        public IMessage onMessage(PacketSendLoc message, MessageContext ctx)
+        {
             FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> handle(message, ctx));
             return null;
         }
 
-        private void handle(PacketSendLoc message, MessageContext ctx) {
+        private void handle(PacketSendLoc message, MessageContext ctx)
+        {
             EntityPlayerMP playerEntity = ctx.getServerHandler().player;
             World world = playerEntity.getEntityWorld();
-            if (world.isBlockLoaded(message.blockPos)) {
+            if (world.isBlockLoaded(message.blockPos))
+            {
                 Block block = world.getBlockState(message.blockPos.down()).getBlock();
-                if (block == Blocks.AIR || block == Blocks.WATER || block == Blocks.LAVA) {
+                if (block == Blocks.AIR || block == Blocks.WATER || block == Blocks.LAVA)
+                {
                     Item item = playerEntity.getHeldItem(EnumHand.MAIN_HAND).getItem();
 
                     if (!playerEntity.isCreative())
