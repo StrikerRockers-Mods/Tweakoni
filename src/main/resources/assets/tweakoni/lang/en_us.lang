@@ -2,7 +2,10 @@ key.tweaktoni.category=Tweakoni
 key.toggle.d_shift=Shift Lock
 key.toggle.bb=Underneath Block Placement
 key.toggle.frame=Item Frame rotate
+
 item.rotator.name=Rotator
+item.item_frame.name=Item Frame
+
 tile.blocker.name=Blocker
 tile.sealantern.name=Sea Lantern
 

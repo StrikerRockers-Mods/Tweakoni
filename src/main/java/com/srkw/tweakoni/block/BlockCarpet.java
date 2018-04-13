@@ -3,6 +3,7 @@ package com.srkw.tweakoni.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -21,126 +22,81 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockCarpet extends Block
 {
-    private static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
-    private static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
+
+	 public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
+	 protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
 
     public BlockCarpet()
     {
-        super(Material.CARPET);
+        super(Material.CLOTH);
         this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
         this.setCreativeTab(CreativeTabs.DECORATIONS);
         setRegistryName("minecraft", "carpet");
         setUnlocalizedName("carpet");
     }
-
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
+    
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {}
+    
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return CARPET_AABB;
     }
 
-    /**
-     * Get the MapColor for this Block and the given BlockState
-     */
-    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    {
-        return MapColor.getBlockColor(state.getValue(COLOR));
+    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        return MapColor.getBlockColor((EnumDyeColor)state.getValue(COLOR));
     }
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    public boolean isOpaqueCube(IBlockState state)
-    {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
-    public boolean isFullCube(IBlockState state)
-    {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
 
-    /**
-     * Checks if this block can be placed exactly at the given position.
-     */
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    {
-        return true;
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
     }
 
-    /**
-     * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
-     * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
-     * block, etc.
-     */
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    {
-    }
 
+    private boolean canBlockStay(World worldIn, BlockPos pos) {
+        return !worldIn.isAirBlock(pos.down());
+    }
 
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        if (side == EnumFacing.UP)
-        {
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        if (side == EnumFacing.UP) {
             return true;
-        } else
-        {
-            return blockAccess.getBlockState(pos.offset(side)).getBlock() == this || super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+        }
+        else {
+            return blockAccess.getBlockState(pos.offset(side)).getBlock() == this ? true : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
         }
     }
 
-    /**
-     * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
-     * returns the metadata of the dropped item based on the old metadata of the block.
-     */
-    public int damageDropped(IBlockState state)
-    {
-        return state.getValue(COLOR).getMetadata();
+    public int damageDropped(IBlockState state) {
+        return ((EnumDyeColor)state.getValue(COLOR)).getMetadata();
     }
 
-    /**
-     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
-     */
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
-    {
-        for (int i = 0; i < 16; ++i)
-        {
+    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+        for (int i = 0; i < 16; ++i) {
             items.add(new ItemStack(this, 1, i));
         }
     }
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
+    public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
     }
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return state.getValue(COLOR).getMetadata();
+    public int getMetaFromState(IBlockState state) {
+        return ((EnumDyeColor)state.getValue(COLOR)).getMetadata();
     }
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, COLOR);
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[] {COLOR});
     }
 
-    /**
-     * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
-     * buttons are allowed to be placed on the face, or how glass panes connect to the face, among other things.
-     * <p>
-     * Common values are {@code SOLID}, which is the default, and {@code UNDEFINED}, which represents something that
-     * does not fit the other descriptions and will generally cause other things not to connect to the face.
-     *
-     * @return an approximation of the form of the given face
-     */
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-    {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
     }
+
 }

@@ -14,11 +14,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ItemRotator extends Item
-{
+public class ItemRotator extends Item {
 
-    public ItemRotator(String name)
-    {
+    public ItemRotator(String name) {
 
         super();
         setCreativeTab(CreativeTabs.TOOLS);
@@ -30,14 +28,14 @@ public class ItemRotator extends Item
 
     }
 
-    public void registerItemModel()
-    {
+    public void registerItemModel() {
+    	
         Tweakoni.proxy.registerItemRenderer(this, 0, "rotator");
+        
     }
 
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
         //Declaring reference variables
         Block block = worldIn.getBlockState(pos).getBlock();
@@ -60,7 +58,7 @@ public class ItemRotator extends Item
 
                 //Play the block placing sound
                 SoundType soundtype = block.getSoundType(worldIn.getBlockState(pos), worldIn, pos, player);
-                worldIn.playSound(player, pos, soundtype.getHitSound(), SoundCategory.BLOCKS, soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F);
+                worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), soundtype.getHitSound(), SoundCategory.BLOCKS, soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F, false);
 
                 //Force the arm to swing
                 player.swingArm(hand);
