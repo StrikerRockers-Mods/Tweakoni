@@ -29,7 +29,9 @@ public class ItemRotator extends Item {
     }
 
     public void registerItemModel() {
+    	
         Tweakoni.proxy.registerItemRenderer(this, 0, "rotator");
+        
     }
 
     @Override
@@ -39,7 +41,8 @@ public class ItemRotator extends Item {
         Block block = worldIn.getBlockState(pos).getBlock();
         IBlockState startState = worldIn.getBlockState(pos);
 
-        if (player.isAllowEdit() && hand == EnumHand.MAIN_HAND) {
+        if (player.isAllowEdit() && hand == EnumHand.MAIN_HAND)
+        {
 
             //Rotate the block around the facing axis
             block.rotateBlock(worldIn, pos, facing);
@@ -47,14 +50,15 @@ public class ItemRotator extends Item {
             //Reference to check if the new block is different from the original one
             IBlockState endState = worldIn.getBlockState(pos);
 
-            if (startState != endState) {
+            if (startState != endState)
+            {
 
                 //Damage the item
                 player.getHeldItem(hand).damageItem(1, player);
 
                 //Play the block placing sound
                 SoundType soundtype = block.getSoundType(worldIn.getBlockState(pos), worldIn, pos, player);
-                worldIn.playSound(player, pos, soundtype.getHitSound(), SoundCategory.BLOCKS, soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F);
+                worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), soundtype.getHitSound(), SoundCategory.BLOCKS, soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F, false);
 
                 //Force the arm to swing
                 player.swingArm(hand);

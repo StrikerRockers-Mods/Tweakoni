@@ -6,8 +6,10 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class RayTrace {
-    public static RayTraceResult rayTrace(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+public class RayTrace
+{
+    public static RayTraceResult rayTrace(World worldIn, EntityPlayer playerIn, boolean useLiquids)
+    {
         float f = playerIn.rotationPitch;
         float f1 = playerIn.rotationYaw;
         double d0 = playerIn.posX;
