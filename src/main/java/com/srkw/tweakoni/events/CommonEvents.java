@@ -35,7 +35,8 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
-    public static void onInteract(PlayerInteractEvent.EntityInteract event) {
+    public static void onInteract(PlayerInteractEvent.EntityInteractSpecific event)
+    {
         if (!event.getEntity().getEntityWorld().isRemote) {
             if (event.getTarget() instanceof EntityVillager) {
                 if (event.getEntityPlayer().getHeldItemMainhand().getItem() == Items.LEAD) {

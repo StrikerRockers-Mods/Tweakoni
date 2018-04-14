@@ -1,14 +1,12 @@
 package com.srkw.tweakoni.events;
 
 import com.srkw.tweakoni.network.PacketHandler;
-import com.srkw.tweakoni.network.PacketItemRotate;
 import com.srkw.tweakoni.network.PacketSendLoc;
 import com.srkw.tweakoni.proxy.ClientProxy;
 import com.srkw.tweakoni.utils.RayTrace;
 import com.srkw.tweakoni.utils.handlers.ConfigHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemElytra;
@@ -35,17 +33,6 @@ public class ClientEvents {
                 if (result.sideHit == EnumFacing.UP) {
                     PacketHandler.INSTANCE.sendToServer(new PacketSendLoc());
                 }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
-        if (event.getWorld().isRemote && event.getTarget() instanceof EntityItemFrame) {
-            event.setCanceled(true);
-            if (ClientProxy.item_frame.isKeyDown()) {
-                EntityItemFrame frame = (EntityItemFrame) event.getTarget();
-                PacketHandler.INSTANCE.sendToServer(new PacketItemRotate());
             }
         }
     }
