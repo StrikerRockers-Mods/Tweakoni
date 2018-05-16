@@ -1,12 +1,17 @@
 package com.srkw.tweakoni.item;
 
 import com.srkw.tweakoni.Tweakoni;
+import com.srkw.tweakoni.init.BlockInit;
+import com.srkw.tweakoni.init.ItemInit;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -36,8 +41,8 @@ public class ItemRotator extends Item {
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-
-        //Declaring reference variables
+    	
+    	//Declaring reference variables
         Block block = worldIn.getBlockState(pos).getBlock();
         IBlockState startState = worldIn.getBlockState(pos);
 
