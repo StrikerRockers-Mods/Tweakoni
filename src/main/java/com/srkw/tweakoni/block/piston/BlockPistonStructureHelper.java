@@ -3,6 +3,7 @@ package com.srkw.tweakoni.block.piston;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.srkw.tweakoni.Tweakoni;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
@@ -14,7 +15,7 @@ import net.minecraft.world.World;
 
 public class BlockPistonStructureHelper {
 
-	public int pushLimit = 5;
+	public int pushLimit = Tweakoni.instance.pushLimit;
 	
     private final World world;
     private final BlockPos pistonPos;
