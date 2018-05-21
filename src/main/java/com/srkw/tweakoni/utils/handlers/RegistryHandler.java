@@ -16,6 +16,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import static com.srkw.tweakoni.init.BlockInit.*;
 
+import com.srkw.tweakoni.block.piston.TileEntityPiston;
+
 @EventBusSubscriber
 public class RegistryHandler
 {
@@ -31,6 +33,7 @@ public class RegistryHandler
         MinecraftForge.EVENT_BUS.register(new CommonEvents());
         PacketHandler.registerMessages("tweakoni");
         GameRegistry.registerTileEntity(TESpawnBlocker.class, "spawnblocker_TE");
+        GameRegistry.registerTileEntity(TileEntityPiston.class, "piston_TE");
 
     }
 
