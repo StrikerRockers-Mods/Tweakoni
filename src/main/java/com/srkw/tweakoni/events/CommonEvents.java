@@ -2,6 +2,7 @@ package com.srkw.tweakoni.events;
 
 import com.srkw.tweakoni.block.JukeBoxProvider;
 import net.minecraft.block.BlockJukebox.TileEntityJukebox;
+import net.minecraft.client.Minecraft;
 import net.minecraft.block.BlockMagma;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityVillager;
@@ -40,7 +41,7 @@ public class CommonEvents
 
     @SubscribeEvent
     public static void onInteract(PlayerInteractEvent.EntityInteract event)
-    {
+    {   	
         if (!event.getEntity().getEntityWorld().isRemote)
         {
             if (event.getTarget() instanceof EntityVillager)
