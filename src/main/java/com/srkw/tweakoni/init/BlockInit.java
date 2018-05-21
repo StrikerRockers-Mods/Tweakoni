@@ -1,5 +1,6 @@
 package com.srkw.tweakoni.init;
 
+import com.srkw.tweakoni.Tweakoni;
 import com.srkw.tweakoni.block.BlockCarpet;
 import com.srkw.tweakoni.block.BlockSea;
 import com.srkw.tweakoni.block.BlockSpawnBlocker;
@@ -35,6 +36,8 @@ public class BlockInit
     public static void registerModels()
     {
         SPAWN_BLOCKER.registerItemModel();
+        Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(PISTON), 0, "piston");
+        Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(STICKY_PISTON), 0, "sticky_piston");
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry)

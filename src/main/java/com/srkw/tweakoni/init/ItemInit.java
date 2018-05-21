@@ -1,5 +1,6 @@
 package com.srkw.tweakoni.init;
 
+import com.srkw.tweakoni.Tweakoni;
 import com.srkw.tweakoni.item.ItemRotator;
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -18,7 +19,6 @@ public class ItemInit
 
     public static void registerModels()
     {
-        ROTATOR.registerItemModel();
-        
+        ROTATOR.registerItemModel();       
     }
 }

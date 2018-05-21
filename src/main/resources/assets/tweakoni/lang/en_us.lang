@@ -9,6 +9,12 @@ item.item_frame.name=Item Frame
 tile.blocker.name=Blocker
 tile.sealantern.name=Sea Lantern
 
+tile.piston.name=Piston
+tile.sticky_piston.name=Sticky Piston
+tile.piston_extension.name=Piston Extension
+tile.piston_head=Piston Head
+subtitles.block.piston.move=Piston moves
+
 //Carpet
 tile.carpet.white.name=White Carpet
 tile.carpet.orange.name=Orange Carpet
