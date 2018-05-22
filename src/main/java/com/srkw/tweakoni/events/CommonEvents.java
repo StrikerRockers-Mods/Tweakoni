@@ -1,15 +1,15 @@
 package com.srkw.tweakoni.events;
 
+import static com.srkw.tweakoni.Tweakoni.MOD_ID;
+
 import com.srkw.tweakoni.block.JukeBoxProvider;
-import com.srkw.tweakoni.init.ItemInit;
 
 import net.minecraft.block.BlockJukebox.TileEntityJukebox;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.block.BlockMagma;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
@@ -24,8 +24,6 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import static com.srkw.tweakoni.Tweakoni.MOD_ID;
-
 @Mod.EventBusSubscriber()
 public class CommonEvents
 {
@@ -35,23 +33,23 @@ public class CommonEvents
 		 
 		 if(event.getTarget() instanceof EntityVillager && event.getEntity() instanceof EntityPlayer && !event.getWorld().isRemote) {
 		 
-			 EntityVillager l = (EntityVillager) event.getTarget();
-			 EntityPlayer p = (EntityPlayer) event.getEntity();
-			 EnumHand h = p.getActiveHand();
+			 EntityVillager villager = (EntityVillager) event.getTarget();
+			 EntityPlayer player = (EntityPlayer) event.getEntity();
+			 EnumHand hand = player.getActiveHand();
 			 
-		 	if (l.getLeashed() && l.getLeashHolder() == p)
+		 	if (villager.getLeashed() && villager.getLeashHolder() == player)
 		 	{
-			 	l.clearLeashed(true, !p.capabilities.isCreativeMode);
+		 		villager.clearLeashed(true, !player.capabilities.isCreativeMode);
 			 	event.setCanceled(true);
 			 	return;
 		 	}
 		 	else
 		 	{
-			 	ItemStack itemstack = p.getHeldItem(h);
+			 	ItemStack itemstack = player.getHeldItem(hand);
 
-			 	if (itemstack.getItem() == ItemInit.LEAD)
+			 	if (itemstack.getItem() == Items.LEAD)
 			 	{
-				 	l.setLeashHolder(p, true);
+			 		villager.setLeashHolder(player, true);
 				 	itemstack.shrink(1);
 				 	event.setCanceled(true);
 				 	return;
