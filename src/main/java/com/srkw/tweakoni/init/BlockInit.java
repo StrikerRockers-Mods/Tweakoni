@@ -1,8 +1,13 @@
 package com.srkw.tweakoni.init;
 
+import com.srkw.tweakoni.Tweakoni;
 import com.srkw.tweakoni.block.BlockCarpet;
 import com.srkw.tweakoni.block.BlockSea;
 import com.srkw.tweakoni.block.BlockSpawnBlocker;
+import com.srkw.tweakoni.block.piston.BlockPistonBase;
+import com.srkw.tweakoni.block.piston.BlockPistonExtension;
+import com.srkw.tweakoni.block.piston.BlockPistonMoving;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -14,17 +19,25 @@ public class BlockInit
     public static BlockSea sea_lantern = new BlockSea(Material.ROCK);
     public static BlockSpawnBlocker SPAWN_BLOCKER = new BlockSpawnBlocker(Material.IRON);
     public static BlockCarpet CARPET = new BlockCarpet();
+    
+    public static BlockPistonBase PISTON = new BlockPistonBase(false, "piston");
+    public static BlockPistonBase STICKY_PISTON = new BlockPistonBase(true, "sticky_piston");
+    public static BlockPistonExtension PISTON_HEAD = new BlockPistonExtension("piston_head");
+    public static BlockPistonMoving PISTON_EXTENSION = new BlockPistonMoving("piston_extension");
 
     public static void register(IForgeRegistry<Block> registry)
     {
         registry.registerAll(
-                sea_lantern, SPAWN_BLOCKER, CARPET
+                sea_lantern, SPAWN_BLOCKER, CARPET, 
+                PISTON, STICKY_PISTON, PISTON_HEAD, PISTON_EXTENSION
         );
     }
 
     public static void registerModels()
     {
         SPAWN_BLOCKER.registerItemModel();
+        Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(PISTON), 0, "piston");
+        Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(STICKY_PISTON), 0, "sticky_piston");
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry)

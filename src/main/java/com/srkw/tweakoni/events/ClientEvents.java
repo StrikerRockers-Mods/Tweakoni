@@ -1,14 +1,16 @@
 package com.srkw.tweakoni.events;
 
 import com.srkw.tweakoni.network.PacketHandler;
-import com.srkw.tweakoni.network.PacketItemRotate;
 import com.srkw.tweakoni.network.PacketSendLoc;
 import com.srkw.tweakoni.proxy.ClientProxy;
 import com.srkw.tweakoni.utils.RayTrace;
 import com.srkw.tweakoni.utils.handlers.ConfigHandler;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItemFrame;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemElytra;
@@ -16,17 +18,30 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 @Mod.EventBusSubscriber
 public class ClientEvents
 {
 
     private static Minecraft mc = Minecraft.getMinecraft();
 
+    @SubscribeEvent
+    public static void onKeyInput(InputEvent.KeyInputEvent event) {
+    	
+    	EntityPlayer p = mc.player;
+    	
+    	if(ClientProxy.d_shift.isKeyDown() && p.onGround && !p.isElytraFlying() && !p.isDead && !p.isRiding() && !p.isPlayerSleeping()) {
+    		mc.gameSettings.keyBindSneak.setKeyBindState(mc.gameSettings.keyBindSneak.getKeyCode(), !mc.player.isSneaking());
+    	}
+    	
+    }
+	
     @SubscribeEvent
     public static void onRightClick(PlayerInteractEvent.RightClickBlock event)
     {
@@ -47,17 +62,27 @@ public class ClientEvents
     @SubscribeEvent
     public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event)
     {
-        if (event.getWorld().isRemote && event.getTarget() instanceof EntityItemFrame)
-        {
-            event.setCanceled(true);
-            if (ClientProxy.item_frame.isKeyDown())
+        if (event.getTarget() instanceof EntityItemFrame)
+        {       	
+            if (!ClientProxy.item_frame.isKeyDown() && ((EntityItemFrame)event.getTarget()).getDisplayedItem().getItem() != Items.AIR)
             {
-                EntityItemFrame frame = (EntityItemFrame) event.getTarget();
-                PacketHandler.INSTANCE.sendToServer(new PacketItemRotate());
-            }
+                event.setCanceled(true);
+            } 
         }
     }
-
+    
+    @SubscribeEvent
+    public static void onLeftClickEntity(AttackEntityEvent event)
+    {
+        if (event.getTarget() instanceof EntityItemFrame)
+        {       	
+            if (!ClientProxy.item_frame.isKeyDown() && ((EntityItemFrame)event.getTarget()).getDisplayedItem().getItem() != Items.AIR)
+            {
+                event.setCanceled(true);
+            } 
+        }
+    }
+    
     @SubscribeEvent
     public static void onOverlayRender(RenderGameOverlayEvent.Post event)
     {
