@@ -148,16 +148,6 @@ public class BlockPistonMoving extends BlockContainer {
      */
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
     {
-        if (false && !worldIn.isRemote) // Forge: Noop this out
-        {
-            TileEntityPiston tileentitypiston = this.getTilePistonAt(worldIn, pos);
-
-            if (tileentitypiston != null)
-            {
-                IBlockState iblockstate = tileentitypiston.getPistonState();
-                iblockstate.getBlock().dropBlockAsItem(worldIn, pos, iblockstate, 0);
-            }
-        }
         super.dropBlockAsItemWithChance(worldIn, pos, state, 1, fortune); // mimic vanilla behavior from above and ignore chance
     }
 

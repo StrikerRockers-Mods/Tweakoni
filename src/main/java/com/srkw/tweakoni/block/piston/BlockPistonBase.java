@@ -340,6 +340,8 @@ public class BlockPistonBase extends BlockDirectional {
 	                            return destroyBlocks;
 	                        case PUSH_ONLY:
 	                            return facing == p_185646_5_;
+						default:
+							break;
 	                    }
 	                }
 	                else if (((Boolean)blockStateIn.getValue(EXTENDED)).booleanValue())
