@@ -1,7 +1,7 @@
 package com.srkw.tweakoni;
 
+import com.srkw.tweakoni.handlers.RegistryHandler;
 import com.srkw.tweakoni.proxy.CommonProxy;
-import com.srkw.tweakoni.utils.handlers.RegistryHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -18,11 +18,9 @@ public class Tweakoni
 
     public static final String MOD_ID = "tweakoni";
     public static final String NAME = "Mumbo Tweakoni";
-    public static final String VERSION = "1.1";
+    public static final String VERSION = "1.3";
     public static final String CLIENT = "com.srkw.tweakoni.proxy.ClientProxy";
     public static final String COMMON = "com.srkw.tweakoni.proxy.CommonProxy";
-    
-    public static int pushLimit = 12;
 
     @Instance
     public static Tweakoni instance;

@@ -1,11 +1,10 @@
 package com.srkw.tweakoni.events;
 
+import com.srkw.tweakoni.handlers.ConfigHandler;
 import com.srkw.tweakoni.network.PacketHandler;
 import com.srkw.tweakoni.network.PacketSendLoc;
 import com.srkw.tweakoni.proxy.ClientProxy;
 import com.srkw.tweakoni.utils.RayTrace;
-import com.srkw.tweakoni.utils.handlers.ConfigHandler;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItemFrame;

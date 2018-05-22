@@ -1,4 +1,4 @@
-package com.srkw.tweakoni.utils.handlers;
+package com.srkw.tweakoni.handlers;
 
 import com.srkw.tweakoni.Tweakoni;
 import net.minecraftforge.common.config.Config;
@@ -11,4 +11,8 @@ public class ConfigHandler
     @Config.Comment("1 for Top-left" +
             "2 for Bottom-left")
     public static int elytraPos = 1;
+
+    @RangeInt
+    @Config.Comment("The push limit for piston")
+    public static int pushLimit = 12;
 }

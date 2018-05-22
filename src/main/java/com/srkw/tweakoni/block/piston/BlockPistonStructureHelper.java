@@ -1,10 +1,7 @@
 package com.srkw.tweakoni.block.piston;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
-import com.srkw.tweakoni.Tweakoni;
-
+import com.srkw.tweakoni.handlers.ConfigHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.EnumPushReaction;
@@ -13,9 +10,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class BlockPistonStructureHelper {
 
-	public int pushLimit = Tweakoni.instance.pushLimit;
+    public int pushLimit = ConfigHandler.pushLimit;
 	
     private final World world;
     private final BlockPos pistonPos;
