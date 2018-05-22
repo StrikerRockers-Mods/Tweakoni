@@ -1,15 +1,18 @@
 package com.srkw.tweakoni.handlers;
 
 import com.srkw.tweakoni.block.piston.TileEntityPiston;
+import com.srkw.tweakoni.block.piston.TileEntityPistonRenderer;
 import com.srkw.tweakoni.events.CommonEvents;
 import com.srkw.tweakoni.init.ItemInit;
 import com.srkw.tweakoni.network.PacketHandler;
 import com.srkw.tweakoni.tileentity.TESpawnBlocker;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -32,6 +35,7 @@ public class RegistryHandler
         PacketHandler.registerMessages("tweakoni");
         GameRegistry.registerTileEntity(TESpawnBlocker.class, "spawnblocker_TE");
         GameRegistry.registerTileEntity(TileEntityPiston.class, "piston_TE");
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPiston.class, new TileEntityPistonRenderer());
 
     }
 

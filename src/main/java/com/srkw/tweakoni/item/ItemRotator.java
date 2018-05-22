@@ -46,7 +46,7 @@ public class ItemRotator extends Item {
         Block block = worldIn.getBlockState(pos).getBlock();
         IBlockState startState = worldIn.getBlockState(pos);
 
-        if (player.isAllowEdit() && hand == EnumHand.MAIN_HAND)
+        if (player.isAllowEdit())
         {
 
             //Rotate the block around the facing axis

@@ -7,6 +7,7 @@ import com.srkw.tweakoni.proxy.ClientProxy;
 import com.srkw.tweakoni.utils.RayTrace;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.settings.GameSettings.Options;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -31,13 +32,29 @@ public class ClientEvents
     private static Minecraft mc = Minecraft.getMinecraft();
 
     @SubscribeEvent
-    public static void onKeyInput(InputEvent.KeyInputEvent event) {
+    public static void ShiftToggle(InputEvent.KeyInputEvent event) {
     	
     	EntityPlayer p = mc.player;
     	
     	if(ClientProxy.d_shift.isKeyDown() && p.onGround && !p.isElytraFlying() && !p.isDead && !p.isRiding() && !p.isPlayerSleeping()) {
     		mc.gameSettings.keyBindSneak.setKeyBindState(mc.gameSettings.keyBindSneak.getKeyCode(), !mc.player.isSneaking());
     	}
+    	
+    }
+    
+    @SubscribeEvent
+    public static void GammaSlider(InputEvent.KeyInputEvent event) {
+    	
+    	if(ClientProxy.decrease_gamma.isKeyDown()) {
+    			mc.gameSettings.setOptionFloatValue(Options.GAMMA, mc.gameSettings.gammaSetting - 0.1F);
+    	}
+    	
+    	if(ClientProxy.increase_gamma.isKeyDown()) {
+    			mc.gameSettings.setOptionFloatValue(Options.GAMMA, mc.gameSettings.gammaSetting + 0.1F);
+        }
+    	
+    	if(mc.gameSettings.gammaSetting > 10F) {mc.gameSettings.setOptionFloatValue(Options.GAMMA, 10F);}
+    	if(mc.gameSettings.gammaSetting < -20F) {mc.gameSettings.setOptionFloatValue(Options.GAMMA, -20F);}
     	
     }
 	
