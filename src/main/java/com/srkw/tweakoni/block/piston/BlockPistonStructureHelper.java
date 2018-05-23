@@ -3,7 +3,6 @@ package com.srkw.tweakoni.block.piston;
 import com.google.common.collect.Lists;
 import com.srkw.tweakoni.handlers.ConfigHandler;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;

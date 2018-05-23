@@ -1,12 +1,17 @@
 package com.srkw.tweakoni.item;
 
 import com.srkw.tweakoni.Tweakoni;
+import com.srkw.tweakoni.init.BlockInit;
+import com.srkw.tweakoni.init.ItemInit;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -29,19 +34,20 @@ public class ItemRotator extends Item {
     }
 
     public void registerItemModel() {
-
+    	
         Tweakoni.proxy.registerItemRenderer(this, 0, "rotator");
-
+        
     }
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-
-        //Declaring reference variables
+    	
+    	//Declaring reference variables
         Block block = worldIn.getBlockState(pos).getBlock();
         IBlockState startState = worldIn.getBlockState(pos);
 
-        if (player.isAllowEdit() && hand == EnumHand.MAIN_HAND) {
+        if (player.isAllowEdit())
+        {
 
             //Rotate the block around the facing axis
             block.rotateBlock(worldIn, pos, facing);
@@ -49,7 +55,8 @@ public class ItemRotator extends Item {
             //Reference to check if the new block is different from the original one
             IBlockState endState = worldIn.getBlockState(pos);
 
-            if (startState != endState) {
+            if (startState != endState)
+            {
 
                 //Damage the item
                 player.getHeldItem(hand).damageItem(1, player);
