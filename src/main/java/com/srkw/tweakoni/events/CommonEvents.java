@@ -1,9 +1,6 @@
 package com.srkw.tweakoni.events;
 
-import static com.srkw.tweakoni.Tweakoni.MOD_ID;
-
 import com.srkw.tweakoni.block.JukeBoxProvider;
-
 import net.minecraft.block.BlockJukebox.TileEntityJukebox;
 import net.minecraft.block.BlockMagma;
 import net.minecraft.entity.passive.EntityVillager;
@@ -24,39 +21,37 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import static com.srkw.tweakoni.Tweakoni.MOD_ID;
+
 @Mod.EventBusSubscriber()
 public class CommonEvents {
 
-	 @SubscribeEvent
-	 public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
-		 
-		 if(event.getTarget() instanceof EntityVillager && event.getEntity() instanceof EntityPlayer && !event.getWorld().isRemote) {
-		 
-			 EntityVillager villager = (EntityVillager) event.getTarget();
-			 EntityPlayer player = (EntityPlayer) event.getEntity();
-			 EnumHand hand = player.getActiveHand();
-			 
-		 	if (villager.getLeashed() && villager.getLeashHolder() == player)
-		 	{
-		 		villager.clearLeashed(true, !player.capabilities.isCreativeMode);
-			 	event.setCanceled(true);
-			 	return;
-		 	}
-		 	else
-		 	{
-			 	ItemStack itemstack = player.getHeldItem(hand);
+    @SubscribeEvent
+    public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
 
-			 	if (itemstack.getItem() == Items.LEAD)
-			 	{
-			 		villager.setLeashHolder(player, true);
-				 	itemstack.shrink(1);
-				 	event.setCanceled(true);
-				 	return;
-			 	}			 	
-		 	}
-	 	}
-	 }
-	 
+        if (event.getTarget() instanceof EntityVillager && event.getEntity() instanceof EntityPlayer && !event.getWorld().isRemote) {
+
+            EntityVillager villager = (EntityVillager) event.getTarget();
+            EntityPlayer player = (EntityPlayer) event.getEntity();
+            EnumHand hand = player.getActiveHand();
+
+            if (villager.getLeashed() && villager.getLeashHolder() == player) {
+                villager.clearLeashed(true, !player.capabilities.isCreativeMode);
+                event.setCanceled(true);
+                return;
+            } else {
+                ItemStack itemstack = player.getHeldItem(hand);
+
+                if (itemstack.getItem() == Items.LEAD) {
+                    villager.setLeashHolder(player, true);
+                    itemstack.shrink(1);
+                    event.setCanceled(true);
+                    return;
+                }
+            }
+        }
+    }
+
     @SubscribeEvent
     public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         if (!event.getEntity().getEntityWorld().isRemote) {

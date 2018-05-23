@@ -5,7 +5,6 @@ import com.srkw.tweakoni.network.PacketHandler;
 import com.srkw.tweakoni.network.PacketSendLoc;
 import com.srkw.tweakoni.proxy.ClientProxy;
 import com.srkw.tweakoni.utils.RayTrace;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.settings.GameSettings.Options;
@@ -27,49 +26,48 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 
 @SuppressWarnings("all")
 @Mod.EventBusSubscriber
-public class ClientEvents
-{
+public class ClientEvents {
 
     private static Minecraft mc = Minecraft.getMinecraft();
 
     @SubscribeEvent
     public static void ShiftToggle(InputEvent.KeyInputEvent event) {
-    	
-    	EntityPlayer p = mc.player;
-    	
-    	if(ClientProxy.d_shift.isKeyDown() && p.onGround && !p.isElytraFlying() && !p.isDead && !p.isRiding() && !p.isPlayerSleeping()) {
-    		mc.gameSettings.keyBindSneak.setKeyBindState(mc.gameSettings.keyBindSneak.getKeyCode(), !mc.player.isSneaking());
-    	}
-    	
+
+        EntityPlayer p = mc.player;
+
+        if (ClientProxy.d_shift.isKeyDown() && p.onGround && !p.isElytraFlying() && !p.isDead && !p.isRiding() && !p.isPlayerSleeping()) {
+            mc.gameSettings.keyBindSneak.setKeyBindState(mc.gameSettings.keyBindSneak.getKeyCode(), !mc.player.isSneaking());
+        }
+
     }
-    
+
     @SubscribeEvent
     public static void GammaSlider(InputEvent.KeyInputEvent event) {
-    	
-    	if(ClientProxy.decrease_gamma.isKeyDown()) {
-    			mc.gameSettings.setOptionFloatValue(Options.GAMMA, mc.gameSettings.gammaSetting - 0.1F);
-    	}
-    	
-    	if(ClientProxy.increase_gamma.isKeyDown()) {
-    			mc.gameSettings.setOptionFloatValue(Options.GAMMA, mc.gameSettings.gammaSetting + 0.1F);
+
+        if (ClientProxy.decrease_gamma.isKeyDown()) {
+            mc.gameSettings.setOptionFloatValue(Options.GAMMA, mc.gameSettings.gammaSetting - 0.1F);
         }
-    	
-    	if(mc.gameSettings.gammaSetting > 10F) {mc.gameSettings.setOptionFloatValue(Options.GAMMA, 10F);}
-    	if(mc.gameSettings.gammaSetting < -20F) {mc.gameSettings.setOptionFloatValue(Options.GAMMA, -20F);}
-    	
+
+        if (ClientProxy.increase_gamma.isKeyDown()) {
+            mc.gameSettings.setOptionFloatValue(Options.GAMMA, mc.gameSettings.gammaSetting + 0.1F);
+        }
+
+        if (mc.gameSettings.gammaSetting > 10F) {
+            mc.gameSettings.setOptionFloatValue(Options.GAMMA, 10F);
+        }
+        if (mc.gameSettings.gammaSetting < -20F) {
+            mc.gameSettings.setOptionFloatValue(Options.GAMMA, -20F);
+        }
+
     }
-	
+
     @SubscribeEvent
-    public static void onRightClick(PlayerInteractEvent.RightClickBlock event)
-    {
-        if (event.getWorld().isRemote)
-        {
+    public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getWorld().isRemote) {
             Item item = event.getItemStack().getItem();
-            if (item instanceof ItemBlock && ClientProxy.block_below.isKeyDown())
-            {
+            if (item instanceof ItemBlock && ClientProxy.block_below.isKeyDown()) {
                 RayTraceResult result = RayTrace.rayTrace(event.getWorld(), event.getEntityPlayer(), false);
-                if (result.sideHit == EnumFacing.UP)
-                {
+                if (result.sideHit == EnumFacing.UP) {
                     PacketHandler.INSTANCE.sendToServer(new PacketSendLoc());
                 }
             }
@@ -77,47 +75,36 @@ public class ClientEvents
     }
 
     @SubscribeEvent
-    public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event)
-    {
-        if (event.getTarget() instanceof EntityItemFrame)
-        {       	
-            if (!ClientProxy.item_frame.isKeyDown() && ((EntityItemFrame)event.getTarget()).getDisplayedItem().getItem() != Items.AIR)
-            {
+    public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
+        if (event.getTarget() instanceof EntityItemFrame) {
+            if (!ClientProxy.item_frame.isKeyDown() && ((EntityItemFrame) event.getTarget()).getDisplayedItem().getItem() != Items.AIR) {
                 event.setCanceled(true);
-            } 
+            }
         }
     }
-    
+
     @SubscribeEvent
-    public static void onLeftClickEntity(AttackEntityEvent event)
-    {
-        if (event.getTarget() instanceof EntityItemFrame)
-        {       	
-            if (!ClientProxy.item_frame.isKeyDown() && ((EntityItemFrame)event.getTarget()).getDisplayedItem().getItem() != Items.AIR)
-            {
+    public static void onLeftClickEntity(AttackEntityEvent event) {
+        if (event.getTarget() instanceof EntityItemFrame) {
+            if (!ClientProxy.item_frame.isKeyDown() && ((EntityItemFrame) event.getTarget()).getDisplayedItem().getItem() != Items.AIR) {
                 event.setCanceled(true);
-            } 
+            }
         }
     }
-    
+
     @SubscribeEvent
-    public static void onOverlayRender(RenderGameOverlayEvent.Post event)
-    {
-        if (event.getType().equals(RenderGameOverlayEvent.ElementType.TEXT))
-        {
+    public static void onOverlayRender(RenderGameOverlayEvent.Post event) {
+        if (event.getType().equals(RenderGameOverlayEvent.ElementType.TEXT)) {
             ScaledResolution resolution = event.getResolution();
             int x = resolution.getScaledWidth() / 100;
             int y = resolution.getScaledHeight() / 100;
-            for (ItemStack stack : mc.player.inventory.armorInventory)
-            {
-                if (stack.getItem() instanceof ItemElytra)
-                {
+            for (ItemStack stack : mc.player.inventory.armorInventory) {
+                if (stack.getItem() instanceof ItemElytra) {
                     int i = stack.getMaxDamage() - stack.getItemDamage();
                     String text = "Elytra : " + i + " / " + stack.getMaxDamage();
                     int x1;
                     int y1;
-                    switch (ConfigHandler.elytraPos)
-                    {
+                    switch (ConfigHandler.elytraPos) {
                         case 1:
                             x1 = x / 95;
                             y1 = y / 100;

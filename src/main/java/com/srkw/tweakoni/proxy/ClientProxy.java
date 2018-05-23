@@ -15,7 +15,7 @@ public class ClientProxy extends CommonProxy {
     public static KeyBinding d_shift = new KeyBinding("key.toggle.d_shift", Keyboard.KEY_O, "key.tweaktoni.category");
     public static KeyBinding block_below = new KeyBinding("key.toggle.bb", Keyboard.KEY_LMENU, "key.tweaktoni.category");
     public static KeyBinding item_frame = new KeyBinding("key.toggle.frame", Keyboard.KEY_B, "key.tweaktoni.category");
-    
+
     public static KeyBinding decrease_gamma = new KeyBinding("key.toggle.dgamma", Keyboard.KEY_F1, "key.tweaktoni.category");
     public static KeyBinding increase_gamma = new KeyBinding("key.toggle.igamma", Keyboard.KEY_F2, "key.tweaktoni.category");
 

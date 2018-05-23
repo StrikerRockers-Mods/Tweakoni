@@ -7,11 +7,8 @@ import com.srkw.tweakoni.init.ItemInit;
 import com.srkw.tweakoni.network.PacketHandler;
 import com.srkw.tweakoni.tileentity.TESpawnBlocker;
 import com.srkw.tweakoni.tileentity.TileEntityHopper;
-
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
-import net.minecraft.potion.Potion;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -46,7 +43,7 @@ public class RegistryHandler {
     public static void onItemRegister(RegistryEvent.Register<Item> event) {
         ItemInit.register(event.getRegistry());
         registerItemBlocks(event.getRegistry());
-    }   
+    }
 
     @SubscribeEvent
     public static void onBlockRegister(RegistryEvent.Register<Block> event) {
