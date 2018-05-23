@@ -40,7 +40,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockHopper extends BlockContainer {
 	
-	public Boolean isNew;
+	public Boolean isNew = false;
 
 
     public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>()
@@ -64,10 +64,6 @@ public class BlockHopper extends BlockContainer {
         this.setCreativeTab(CreativeTabs.REDSTONE);
         setRegistryName("minecraft", name);
         setUnlocalizedName(name);
-        
-        if(name.equals("hopper")) {isNew = false;}
-        if(name.equals("hopper_new")) {isNew = true;}
-
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)

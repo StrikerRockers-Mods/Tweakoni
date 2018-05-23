@@ -34,6 +34,7 @@ public class ContainerHopper extends Container {
 	        {
 	            this.addSlotToContainer(new Slot(playerInventory, i1, 8 + i1 * 18, 109));
 	        }
+	        
 	    }
 
 	    /**
