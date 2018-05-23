@@ -17,17 +17,14 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import static com.srkw.tweakoni.init.BlockInit.*;
 
 @EventBusSubscriber
-public class RegistryHandler
-{
+public class RegistryHandler {
 
 
-    public static void preInitRegistries()
-    {
+    public static void preInitRegistries() {
 
     }
 
-    public static void initRegistries()
-    {
+    public static void initRegistries() {
         MinecraftForge.EVENT_BUS.register(new CommonEvents());
         PacketHandler.registerMessages("tweakoni");
         GameRegistry.registerTileEntity(TESpawnBlocker.class, "spawnblocker_TE");
@@ -35,26 +32,23 @@ public class RegistryHandler
 
     }
 
-    public static void postInitRegistries()
-    {
+    public static void postInitRegistries() {
     }
 
     @SubscribeEvent
-    public static void onItemRegister(RegistryEvent.Register<Item> event)
-    {
+    public static void onItemRegister(RegistryEvent.Register<Item> event) {
         ItemInit.register(event.getRegistry());
         registerItemBlocks(event.getRegistry());
     }
 
     @SubscribeEvent
-    public static void onBlockRegister(RegistryEvent.Register<Block> event)
-    {
+    public static void onBlockRegister(RegistryEvent.Register<Block> event) {
         register(event.getRegistry());
     }
 
+
     @SubscribeEvent
-    public static void onModelRegister(ModelRegistryEvent event)
-    {
+    public static void onModelRegister(ModelRegistryEvent event) {
         ItemInit.registerModels();
         registerModels();
     }

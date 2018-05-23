@@ -13,14 +13,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import static com.srkw.tweakoni.Tweakoni.*;
 
 @Mod(modid = MOD_ID, name = NAME, version = VERSION)
-public class Tweakoni
-{
+public class Tweakoni {
 
     public static final String MOD_ID = "tweakoni";
     public static final String NAME = "Mumbo Tweakoni";
     public static final String VERSION = "1.3";
-    public static final String CLIENT = "com.srkw.tweakoni.proxy.ClientProxy";
-    public static final String COMMON = "com.srkw.tweakoni.proxy.CommonProxy";
+    private static final String CLIENT = "com.srkw.tweakoni.proxy.ClientProxy";
+    private static final String COMMON = "com.srkw.tweakoni.proxy.CommonProxy";
 
     @Instance
     public static Tweakoni instance;
@@ -29,21 +28,18 @@ public class Tweakoni
     public static CommonProxy proxy;
 
     @EventHandler
-    public static void preInit(FMLPreInitializationEvent event)
-    {
+    public static void preInit(FMLPreInitializationEvent event) {
         RegistryHandler.preInitRegistries();
     }
 
     @EventHandler
-    public static void init(FMLInitializationEvent event)
-    {
+    public static void init(FMLInitializationEvent event) {
         RegistryHandler.initRegistries();
         proxy.registerKeyBindings();
     }
 
     @EventHandler
-    public static void postInit(FMLPostInitializationEvent event)
-    {
+    public static void postInit(FMLPostInitializationEvent event) {
         RegistryHandler.postInitRegistries();
     }
 }

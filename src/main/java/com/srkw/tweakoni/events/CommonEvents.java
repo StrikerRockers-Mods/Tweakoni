@@ -18,34 +18,27 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import static com.srkw.tweakoni.Tweakoni.MOD_ID;
 
 @Mod.EventBusSubscriber()
-public class CommonEvents
-{
+public class CommonEvents {
 
     @SubscribeEvent
-    public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event)
-    {
-        if (!event.getEntity().getEntityWorld().isRemote)
-        {
+    public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
+        if (!event.getEntity().getEntityWorld().isRemote) {
             BlockPos pos = event.getEntity().getPosition();
-            if (event.getEntity().getEntityWorld().getBlockState(pos.down()).getBlock() instanceof BlockMagma)
-            {
+            if (event.getEntity().getEntityWorld().getBlockState(pos.down()).getBlock() instanceof BlockMagma) {
                 event.getEntity().attackEntityFrom(DamageSource.HOT_FLOOR, 1.0F);
             }
         }
     }
 
     @SubscribeEvent
-    public static void onAttach(AttachCapabilitiesEvent<TileEntity> event)
-    {
-        if (event.getObject() instanceof TileEntityJukebox)
-        {
+    public static void onAttach(AttachCapabilitiesEvent<TileEntity> event) {
+        if (event.getObject() instanceof TileEntityJukebox) {
             event.addCapability(new ResourceLocation("srkw", "itemhandler"), new JukeBoxProvider((TileEntityJukebox) event.getObject()));
         }
     }
 
     @SubscribeEvent
-    public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
-    {
+    public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(MOD_ID))
             ConfigManager.sync(MOD_ID, Config.Type.INSTANCE);
     }

@@ -12,11 +12,8 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockSpawnBlocker extends Block implements ITileEntityProvider
-{
+public class BlockSpawnBlocker extends Block implements ITileEntityProvider {
 
     public BlockSpawnBlocker(Material materialIn) {
 
@@ -32,30 +29,30 @@ public class BlockSpawnBlocker extends Block implements ITileEntityProvider
     }
 
     public void registerItemModel() {
-    	
+
         Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "blocker");
-        
+
     }
 
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
 
         return new TESpawnBlocker();
-        
+
     }
-    
+
     @Override
     public BlockRenderLayer getBlockLayer() {
-    	
+
         return BlockRenderLayer.CUTOUT;
-        
+
     }
-    
+
     @Override
     public boolean isOpaqueCube(IBlockState state) {
-    	
+
         return false;
-        
+
     }
 
 

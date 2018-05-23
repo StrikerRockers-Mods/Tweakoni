@@ -20,30 +20,29 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockCarpet extends Block
-{
+public class BlockCarpet extends Block {
 
-	 public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
-	 protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
+    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
+    protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
 
-    public BlockCarpet()
-    {
+    public BlockCarpet() {
         super(Material.CLOTH);
         this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
         this.setCreativeTab(CreativeTabs.DECORATIONS);
         setRegistryName("minecraft", "carpet");
         setUnlocalizedName("carpet");
     }
-    
+
     @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {}
-    
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+    }
+
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return CARPET_AABB;
     }
 
     public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return MapColor.getBlockColor((EnumDyeColor)state.getValue(COLOR));
+        return MapColor.getBlockColor((EnumDyeColor) state.getValue(COLOR));
     }
 
     public boolean isOpaqueCube(IBlockState state) {
@@ -67,14 +66,13 @@ public class BlockCarpet extends Block
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
         if (side == EnumFacing.UP) {
             return true;
-        }
-        else {
+        } else {
             return blockAccess.getBlockState(pos.offset(side)).getBlock() == this ? true : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
         }
     }
 
     public int damageDropped(IBlockState state) {
-        return ((EnumDyeColor)state.getValue(COLOR)).getMetadata();
+        return ((EnumDyeColor) state.getValue(COLOR)).getMetadata();
     }
 
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
@@ -88,11 +86,11 @@ public class BlockCarpet extends Block
     }
 
     public int getMetaFromState(IBlockState state) {
-        return ((EnumDyeColor)state.getValue(COLOR)).getMetadata();
+        return ((EnumDyeColor) state.getValue(COLOR)).getMetadata();
     }
 
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {COLOR});
+        return new BlockStateContainer(this, new IProperty[]{COLOR});
     }
 
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
