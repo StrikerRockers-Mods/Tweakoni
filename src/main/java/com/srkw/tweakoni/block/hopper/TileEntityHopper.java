@@ -37,11 +37,14 @@ public class TileEntityHopper extends net.minecraft.tileentity.TileEntityHopper 
 	 private NonNullList<ItemStack> inventory = NonNullList.<ItemStack>withSize(5, ItemStack.EMPTY);
 	    private int transferCooldown = -1;
 	    private long tickedGameTime;
+<<<<<<< HEAD
 	    private boolean newHopper = false;
 	    
 	    public TileEntityHopper(boolean isNew) {
 	    	newHopper = isNew;
 	    }
+=======
+>>>>>>> master
 
 	    public static void registerFixesHopper(DataFixer fixer)
 	    {
@@ -64,7 +67,10 @@ public class TileEntityHopper extends net.minecraft.tileentity.TileEntityHopper 
 	        }
 
 	        this.transferCooldown = compound.getInteger("TransferCooldown");
+<<<<<<< HEAD
 	        this.newHopper = compound.getBoolean("newHopper");
+=======
+>>>>>>> master
 	    }
 
 	    public NBTTagCompound writeToNBT(NBTTagCompound compound)
@@ -82,8 +88,11 @@ public class TileEntityHopper extends net.minecraft.tileentity.TileEntityHopper 
 	        {
 	            compound.setString("CustomName", this.customName);
 	        }
+<<<<<<< HEAD
 	        
 	        compound.setBoolean("newHopper", this.newHopper);
+=======
+>>>>>>> master
 
 	        return compound;
 	    }
@@ -161,6 +170,7 @@ public class TileEntityHopper extends net.minecraft.tileentity.TileEntityHopper 
 	            if (!this.isOnTransferCooldown() && BlockHopper.isEnabled(this.getBlockMetadata()))
 	            {
 	                boolean flag = false;
+<<<<<<< HEAD
 	                
 	                if(newHopper) {
 	                	if (!this.isFull())
@@ -200,6 +210,25 @@ public class TileEntityHopper extends net.minecraft.tileentity.TileEntityHopper 
 	                	}
 	                }
 	                
+=======
+
+	                if (!this.isFull())
+	                {
+	                    flag = pullItems(this) || flag;
+	                }
+	                
+	                if (!this.isInventoryEmpty())
+	                {
+	                    flag = this.transferItemsOut();
+	                }
+
+	                if (flag)
+	                {
+	                    this.setTransferCooldown(8);
+	                    this.markDirty();
+	                    return true;
+	                }
+>>>>>>> master
 	            }
 
 	            return false;
