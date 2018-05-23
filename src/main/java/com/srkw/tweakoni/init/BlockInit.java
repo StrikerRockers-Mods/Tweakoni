@@ -26,13 +26,14 @@ public class BlockInit
     public static BlockPistonExtension PISTON_HEAD = new BlockPistonExtension("piston_head");
     public static BlockPistonMoving PISTON_EXTENSION = new BlockPistonMoving("piston_extension");
     public static BlockHopper HOPPER = new BlockHopper("hopper");
+    public static BlockHopper HOPPER_NEW = new BlockHopper("hopper_new");
 
     public static void register(IForgeRegistry<Block> registry)
     {
         registry.registerAll(
                 sea_lantern, SPAWN_BLOCKER, CARPET, 
                 PISTON, STICKY_PISTON, PISTON_HEAD, PISTON_EXTENSION,
-                HOPPER
+                HOPPER, HOPPER_NEW
         );
     }
 
@@ -42,6 +43,7 @@ public class BlockInit
         Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(PISTON), 0, "piston");
         Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(STICKY_PISTON), 0, "sticky_piston");
         Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(HOPPER), 0, "hopper");
+        Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(HOPPER_NEW), 0, "hopper_new");
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry)
