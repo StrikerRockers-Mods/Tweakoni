@@ -1,20 +1,18 @@
 package com.srkw.tweakoni.block.hopper;
 
-import java.io.IOException;
-
+import com.srkw.tweakoni.network.PacketHandler;
+import com.srkw.tweakoni.network.PacketUpdatePriority;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.IInteractionObject;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.io.IOException;
 
 @SideOnly(Side.CLIENT)
 public class GuiHopper extends GuiContainer {
@@ -30,7 +28,7 @@ public class GuiHopper extends GuiContainer {
      * The hopper inventory bound to this GUI instance
      */
     private final IInventory hopperInventory;
-    
+
     private TileEntityHopper TE;
     private String version;
 
@@ -42,20 +40,20 @@ public class GuiHopper extends GuiContainer {
         this.allowUserInput = false;
         this.ySize = 133;
     }
-    
+
     public void initGui() {
-    	
-    	buttonList.add(new GuiButton(0, (width + 100) /2, ((height + 20) / 2) + 40, 100, 20, "Change Priority"));
-    	super.initGui();
+
+        buttonList.add(new GuiButton(0, (width + 100) / 2, ((height + 20) / 2) + 40, 100, 20, "Change Priority"));
+        super.initGui();
     }
-    
+
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-    	
-    	if(button.id == 0) {
-    			TE.setIsNew(!TE.getIsNew());
-    	}
-    	
+        if (button.id == 0) {
+            TE.setIsNew(!TE.getIsNew());
+            PacketHandler.INSTANCE.sendToServer(new PacketUpdatePriority(this.TE.getPos()));
+        }
+
     }
 
     /**
@@ -71,12 +69,12 @@ public class GuiHopper extends GuiContainer {
      * Draw the foreground layer for the GuiContainer (everything in front of the items)
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        if(TE.getIsNew()) {
-        	version = "Push/Pull Hopper";
-        	this.fontRenderer.drawString(version, 8, 6, 4210752);
+        if (TE.getIsNew()) {
+            version = "Push/Pull Hopper(Vanilla Behavior)";
+            this.fontRenderer.drawString(version, 8, 6, 4210752);
         } else {
-        	version = "Pull/Push Hopper";
-        	this.fontRenderer.drawString(version, 8, 6, 4210752);	
+            version = "Pull/Push Hopper";
+            this.fontRenderer.drawString(version, 8, 6, 4210752);
         }
         this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }

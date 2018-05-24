@@ -3,7 +3,6 @@ package com.srkw.tweakoni.block.hopper;
 import com.google.common.base.Predicate;
 import com.srkw.tweakoni.Tweakoni;
 import com.srkw.tweakoni.handlers.GuiHandler;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.MapColor;
@@ -14,8 +13,6 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,7 +28,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -141,19 +137,16 @@ public class BlockHopper extends BlockContainer {
      */
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        	
-    	IInventory hopper = (TileEntityHopper)worldIn.getTileEntity(pos);
-    	InventoryPlayer inv = playerIn.inventory;
-    	
-    	if (worldIn.isRemote) {
-        	//playerIn.openGui(Tweakoni.instance, GuiHandler.HOPPER_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
-        	//playerIn.addStat(StatList.HOPPER_INSPECTED);
-            return true;
-        } else {
+
+        IInventory hopper = (TileEntityHopper) worldIn.getTileEntity(pos);
+        InventoryPlayer inv = playerIn.inventory;
+
+        if (!worldIn.isRemote) {
             playerIn.openGui(Tweakoni.instance, GuiHandler.HOPPER_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
             playerIn.addStat(StatList.HOPPER_INSPECTED);
             return true;
         }
+        return true;
     }
 
     /**

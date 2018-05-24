@@ -1,5 +1,6 @@
 package com.srkw.tweakoni.handlers;
 
+import com.srkw.tweakoni.Tweakoni;
 import com.srkw.tweakoni.block.hopper.TileEntityHopper;
 import com.srkw.tweakoni.block.piston.TileEntityPiston;
 import com.srkw.tweakoni.block.piston.TileEntityPistonRenderer;
@@ -19,8 +20,6 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import static com.srkw.tweakoni.init.BlockInit.*;
-
-import com.srkw.tweakoni.Tweakoni;
 
 @EventBusSubscriber
 public class RegistryHandler {

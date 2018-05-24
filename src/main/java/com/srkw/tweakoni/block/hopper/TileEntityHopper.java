@@ -632,9 +632,9 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
     }
 
 
-	@Override
-	public String getGuiID() {
-		return "none";
-	}
+    @Override
+    public String getGuiID() {
+        return "none";
+    }
 
 }
