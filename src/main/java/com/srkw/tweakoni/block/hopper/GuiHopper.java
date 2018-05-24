@@ -43,15 +43,14 @@ public class GuiHopper extends GuiContainer {
 
     public void initGui() {
 
-        buttonList.add(new GuiButton(0, (width + 100) / 2, ((height + 20) / 2) + 40, 100, 20, "Change Priority"));
+        buttonList.add(new GuiButton(0, ((width + 100) / 2) - 100, ((height + 20) / 2) + 60, 100, 20, "Change Priority"));
         super.initGui();
     }
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
-            TE.setIsNew(!TE.getIsNew());
-            PacketHandler.INSTANCE.sendToServer(new PacketUpdatePriority(this.TE.getPos()));
+            PacketHandler.INSTANCE.sendToServer(new PacketUpdatePriority(TE.getPos()));
         }
 
     }
@@ -70,10 +69,10 @@ public class GuiHopper extends GuiContainer {
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         if (TE.getIsNew()) {
-            version = "Push/Pull Hopper(Vanilla Behavior)";
+            version = "Push/Pull Hopper";
             this.fontRenderer.drawString(version, 8, 6, 4210752);
         } else {
-            version = "Pull/Push Hopper";
+            version = "Pull/Push Hopper (Vanilla)";
             this.fontRenderer.drawString(version, 8, 6, 4210752);
         }
         this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);

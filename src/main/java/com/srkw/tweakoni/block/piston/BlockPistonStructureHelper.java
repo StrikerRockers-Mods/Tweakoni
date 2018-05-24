@@ -107,6 +107,10 @@ public class BlockPistonStructureHelper {
                 while (true) {
                     BlockPos blockpos1 = origin.offset(this.moveDirection, j1);
                     int k = this.toMove.indexOf(blockpos1);
+                    
+                    if(!world.isBlockLoaded(blockpos1)) {
+                    	return false;
+                    }
 
                     if (k > -1) {
                         this.reorderListAtCollision(i1, k);

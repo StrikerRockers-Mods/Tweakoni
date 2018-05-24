@@ -15,6 +15,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class BlockInit {
+	
     public static BlockSea sea_lantern = new BlockSea(Material.ROCK);
     public static BlockSpawnBlocker SPAWN_BLOCKER = new BlockSpawnBlocker(Material.IRON);
     public static BlockCarpet CARPET = new BlockCarpet();

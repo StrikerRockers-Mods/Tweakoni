@@ -422,7 +422,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
                     if (!this.isInventoryEmpty()) {
                         flag = this.transferItemsOut();
                     }
-
+                    
                     if (flag) {
                         this.setTransferCooldown(8);
                         this.markDirty();
@@ -437,7 +437,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 
                     if (!this.isFull()) {
                         flag = pullItems(this) || flag;
-                    }
+                    }                 
 
                     if (flag) {
                         this.setTransferCooldown(8);
@@ -601,6 +601,17 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 
     //==============================================TWEAKONI========================================================//
 
+    @Override
+	@Nullable
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		return new SPacketUpdateTileEntity(this.pos, 3, this.getUpdateTag());
+	}
+
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		return this.writeToNBT(new NBTTagCompound());
+	}	
+	
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);

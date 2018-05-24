@@ -2,15 +2,14 @@ package com.srkw.tweakoni.network;
 
 import com.srkw.tweakoni.block.hopper.TileEntityHopper;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-/**
- * Created by StrikerRocker on 24/5/18.
- */
 public class PacketUpdatePriority implements IMessage {
 
     private BlockPos blockPos;
@@ -35,14 +34,18 @@ public class PacketUpdatePriority implements IMessage {
     public static class Handler implements IMessageHandler<PacketUpdatePriority, IMessage> {
         @Override
         public IMessage onMessage(PacketUpdatePriority message, MessageContext ctx) {
-            FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> handle(message, ctx));
+        	
+        	EntityPlayerMP player = ctx.getServerHandler().player;
+        	WorldServer world = player.getServerWorld();
+        	
+        	world.addScheduledTask(() -> {  
+        		if(world.getTileEntity(message.blockPos) instanceof TileEntityHopper) {
+        			TileEntityHopper hopper = (TileEntityHopper)world.getTileEntity(message.blockPos);
+                	hopper.setIsNew(!hopper.getIsNew());
+        		}
+        	});
+        	
             return null;
-        }
-
-        private void handle(PacketUpdatePriority message, MessageContext ctx) {
-            BlockPos pos = message.blockPos;
-            TileEntityHopper hopper = (TileEntityHopper) ctx.getServerHandler().player.world.getTileEntity(pos);
-            hopper.setIsNew(!hopper.getIsNew());
         }
     }
 }
