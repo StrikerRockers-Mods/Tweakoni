@@ -1,6 +1,9 @@
 package com.srkw.tweakoni.block.hopper;
 
+import java.io.IOException;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,13 +30,32 @@ public class GuiHopper extends GuiContainer {
      * The hopper inventory bound to this GUI instance
      */
     private final IInventory hopperInventory;
+    
+    private TileEntityHopper TE;
+    private String version;
 
     public GuiHopper(InventoryPlayer playerInv, IInventory hopperInv) {
         super(new ContainerHopper(playerInv, hopperInv, Minecraft.getMinecraft().player));
         this.playerInventory = playerInv;
         this.hopperInventory = hopperInv;
+        this.TE = (TileEntityHopper) hopperInv;
         this.allowUserInput = false;
         this.ySize = 133;
+    }
+    
+    public void initGui() {
+    	
+    	buttonList.add(new GuiButton(0, (width + 100) /2, ((height + 20) / 2) + 40, 100, 20, "Change Priority"));
+    	super.initGui();
+    }
+    
+    @Override
+    protected void actionPerformed(GuiButton button) throws IOException {
+    	
+    	if(button.id == 0) {
+    			TE.setIsNew(!TE.getIsNew());
+    	}
+    	
     }
 
     /**
@@ -41,7 +63,6 @@ public class GuiHopper extends GuiContainer {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        this.fontRenderer.drawString("Pull/Push Hopper(Vanilla Version)", 8, 6, 4210752);
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
     }
@@ -50,6 +71,13 @@ public class GuiHopper extends GuiContainer {
      * Draw the foreground layer for the GuiContainer (everything in front of the items)
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        if(TE.getIsNew()) {
+        	version = "Push/Pull Hopper";
+        	this.fontRenderer.drawString(version, 8, 6, 4210752);
+        } else {
+        	version = "Pull/Push Hopper";
+        	this.fontRenderer.drawString(version, 8, 6, 4210752);	
+        }
         this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }
 
