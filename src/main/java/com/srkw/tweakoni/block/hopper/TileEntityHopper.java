@@ -18,8 +18,10 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.IHopper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
@@ -32,7 +34,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class TileEntityHopper extends net.minecraft.tileentity.TileEntityHopper {
+public class TileEntityHopper extends TileEntityLockableLoot implements IHopper, ITickable {
 
     private NonNullList<ItemStack> inventory = NonNullList.<ItemStack>withSize(5, ItemStack.EMPTY);
     private int transferCooldown = -1;
@@ -477,7 +479,7 @@ public class TileEntityHopper extends net.minecraft.tileentity.TileEntityHopper 
     }
 
     private boolean transferItemsOut() {
-        if (net.minecraftforge.items.VanillaInventoryCodeHooks.insertHook(this)) {
+        if (VanillaInventoryCodeHooks.insertHook(this)) {
             return true;
         }
         IInventory iinventory = this.getInventoryForHopperTransfer();
@@ -540,7 +542,7 @@ public class TileEntityHopper extends net.minecraft.tileentity.TileEntityHopper 
     }
 
     protected net.minecraftforge.items.IItemHandler createUnSidedHandler() {
-        return new net.minecraftforge.items.VanillaHopperItemHandler(this);
+        return new VanillaHopperItemHandler(this);
     }
 
     /**
@@ -584,10 +586,6 @@ public class TileEntityHopper extends net.minecraft.tileentity.TileEntityHopper 
         return this.transferCooldown > 8;
     }
 
-    public String getGuiID() {
-        return "minecraft:hopper";
-    }
-
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         this.fillWithLoot(playerIn);
         return new ContainerHopper(playerInventory, this, playerIn);
@@ -601,7 +599,7 @@ public class TileEntityHopper extends net.minecraft.tileentity.TileEntityHopper 
         return tickedGameTime;
     } // Forge
 
-    //==============================================TWEAKONI========================================================
+    //==============================================TWEAKONI========================================================//
 
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
@@ -632,5 +630,11 @@ public class TileEntityHopper extends net.minecraft.tileentity.TileEntityHopper 
         markForUpdate();
 
     }
+
+
+	@Override
+	public String getGuiID() {
+		return "none";
+	}
 
 }

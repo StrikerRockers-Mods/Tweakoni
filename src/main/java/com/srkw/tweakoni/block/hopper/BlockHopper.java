@@ -1,6 +1,9 @@
 package com.srkw.tweakoni.block.hopper;
 
 import com.google.common.base.Predicate;
+import com.srkw.tweakoni.Tweakoni;
+import com.srkw.tweakoni.handlers.GuiHandler;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.MapColor;
@@ -11,11 +14,15 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -24,6 +31,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -131,17 +139,19 @@ public class BlockHopper extends BlockContainer {
     /**
      * Called when the block is right clicked by a player.
      */
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote) {
+        	
+    	IInventory hopper = (TileEntityHopper)worldIn.getTileEntity(pos);
+    	InventoryPlayer inv = playerIn.inventory;
+    	
+    	if (worldIn.isRemote) {
+        	//playerIn.openGui(Tweakoni.instance, GuiHandler.HOPPER_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+        	//playerIn.addStat(StatList.HOPPER_INSPECTED);
             return true;
         } else {
-            TileEntity tileentity = worldIn.getTileEntity(pos);
-
-            if (tileentity instanceof TileEntityHopper) {
-                playerIn.displayGUIChest((TileEntityHopper) tileentity);
-                playerIn.addStat(StatList.HOPPER_INSPECTED);
-            }
-
+            playerIn.openGui(Tweakoni.instance, GuiHandler.HOPPER_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            playerIn.addStat(StatList.HOPPER_INSPECTED);
             return true;
         }
     }
