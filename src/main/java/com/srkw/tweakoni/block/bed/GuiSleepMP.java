@@ -2,6 +2,7 @@ package com.srkw.tweakoni.block.bed;
 
 import java.io.IOException;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.network.NetHandlerPlayClient;
@@ -17,10 +18,14 @@ public class GuiSleepMP extends GuiChat
      * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
      * window resizes, the buttonList is cleared beforehand.
      */
+	GuiButton removeSpawn;
+	boolean keepSpawn = true;	
+	
     public void initGui()
     {
         super.initGui();
         this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height - 40, I18n.format("multiplayer.stopSleeping")));
+        this.buttonList.add(removeSpawn = new GuiButton(2, this.width / 2 - 100, this.height - 60, "Remove Spawn"));
     }
 
     /**
@@ -59,6 +64,11 @@ public class GuiSleepMP extends GuiChat
         if (button.id == 1)
         {
             this.wakeFromSleep();
+        }
+        if (button.id == 2)
+        {
+        	removeSpawn.enabled = false;
+        	keepSpawn = false;
         }
         else
         {

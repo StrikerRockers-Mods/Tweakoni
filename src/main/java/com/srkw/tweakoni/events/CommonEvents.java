@@ -2,10 +2,12 @@ package com.srkw.tweakoni.events;
 
 import com.srkw.tweakoni.block.JukeBoxProvider;
 import com.srkw.tweakoni.block.bed.BlockBed;
+import com.srkw.tweakoni.block.bed.GuiSleepMP;
 
 import net.minecraft.block.BlockJukebox.TileEntityJukebox;
 import net.minecraft.block.BlockMagma;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayer.SleepResult;
@@ -31,13 +33,28 @@ import static com.srkw.tweakoni.Tweakoni.MOD_ID;
 @Mod.EventBusSubscriber()
 public class CommonEvents {
 	
-	public static void sleepEvent(PlayerSleepInBedEvent event) {
-		if(event.getResultStatus() == SleepResult.OK) {
-			//IBlockState state = event.getEntity().getEntityWorld().getBlockState(event.getPos());
-			//state = state.withProperty(((BlockBed)event.getEntity().getEntityWorld().getBlockState(event.getPos()).getBlock()).OCCUPIED, Boolean.valueOf(true));
-			//event.getEntity().getEntityWorld().setBlockState(event.getPos(), state, 4);
-			event.getEntityPlayer().closeScreen();
+	@SubscribeEvent
+	public static void sleepEvent(LivingEvent.LivingUpdateEvent event) {
+		
+		if(event.getEntityLiving() instanceof EntityPlayer && event.getEntityLiving().getEntityWorld().isRemote) {
+			
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+			
+			if(player.isPlayerSleeping()) {
+				if(!(Minecraft.getMinecraft().currentScreen instanceof GuiSleepMP)) {
+					Minecraft.getMinecraft().displayGuiScreen(null);
+					Minecraft.getMinecraft().displayGuiScreen(new GuiSleepMP());	
+				}
+			}
+			
+			if(!player.isPlayerSleeping()) {
+				if(Minecraft.getMinecraft().currentScreen instanceof GuiSleepMP) {
+					Minecraft.getMinecraft().displayGuiScreen(null);	
+				}
+			}
+			
 		}
+		
 	}
 
     @SubscribeEvent

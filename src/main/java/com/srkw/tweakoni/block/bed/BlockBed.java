@@ -4,6 +4,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.srkw.tweakoni.init.BlockInit;
 import com.srkw.tweakoni.init.ItemInit;
 
 import net.minecraft.block.Block;
@@ -100,8 +101,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 
             if (worldIn.provider.canRespawnHere() && worldIn.getBiome(pos) != Biomes.HELL)
             {
-                if (((Boolean)state.getValue(OCCUPIED)).booleanValue())
-                {
+
                     EntityPlayer entityplayer = this.getPlayerInBed(worldIn, pos);
 
                     if (entityplayer != null)
@@ -110,16 +110,33 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
                         return true;
                     }
 
-                    state = state.withProperty(OCCUPIED, Boolean.valueOf(false));
-                    worldIn.setBlockState(pos, state, 4);
-                }
+                   	//TileEntityBed te = (TileEntityBed) worldIn.getTileEntity(pos);
+                	//EnumDyeColor previousMeta = te.getColor();
+                    //state = state.withProperty(OCCUPIED, Boolean.valueOf(false));
+                    //worldIn.setBlockState(pos, state, 4);
+                    //te.setColor(previousMeta);
+                    
+                    //BlockPos blockpos = pos.offset(((EnumFacing)state.getValue(FACING)).getOpposite());
+                    //TileEntityBed te2 = (TileEntityBed) worldIn.getTileEntity(blockpos);
+                    //te2.setColor(previousMeta);
 
                 EntityPlayer.SleepResult entityplayer$sleepresult = playerIn.trySleep(pos);
 
                 if (entityplayer$sleepresult == EntityPlayer.SleepResult.OK)
                 {
-                    state = state.withProperty(OCCUPIED, Boolean.valueOf(true));
-                    worldIn.setBlockState(pos, state, 10);
+                	//TileEntityBed te = (TileEntityBed) worldIn.getTileEntity(pos);
+                	//EnumDyeColor previousMeta = te.getColor();
+                    //state = state.withProperty(OCCUPIED, Boolean.valueOf(true));
+                    //worldIn.setBlockState(pos, state, 4);
+                    //te.setColor(previousMeta);
+                    
+                   // BlockPos blockpos = pos.offset(((EnumFacing)state.getValue(FACING)).getOpposite());
+                    //TileEntityBed te2 = (TileEntityBed) worldIn.getTileEntity(blockpos);
+                    //te2.setColor(previousMeta);
+                    
+                    //worldIn.notifyNeighborsRespectDebug(pos, worldIn.getBlockState(pos).getBlock(), false);
+                    //worldIn.notifyNeighborsRespectDebug(blockpos, worldIn.getBlockState(blockpos).getBlock(), false);
+                    
                     return true;
                 }
                 else
