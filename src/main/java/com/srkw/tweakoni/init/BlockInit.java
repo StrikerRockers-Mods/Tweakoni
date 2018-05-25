@@ -4,6 +4,7 @@ import com.srkw.tweakoni.Tweakoni;
 import com.srkw.tweakoni.block.BlockCarpet;
 import com.srkw.tweakoni.block.BlockSea;
 import com.srkw.tweakoni.block.BlockSpawnBlocker;
+import com.srkw.tweakoni.block.bed.BlockBed;
 import com.srkw.tweakoni.block.hopper.BlockHopper;
 import com.srkw.tweakoni.block.piston.BlockPistonBase;
 import com.srkw.tweakoni.block.piston.BlockPistonExtension;
@@ -25,13 +26,13 @@ public class BlockInit {
     public static BlockPistonExtension PISTON_HEAD = new BlockPistonExtension("piston_head");
     public static BlockPistonMoving PISTON_EXTENSION = new BlockPistonMoving("piston_extension");
     public static BlockHopper HOPPER = new BlockHopper("hopper");
-
+    public static BlockBed BED = new BlockBed("bed");
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
                 sea_lantern, SPAWN_BLOCKER, CARPET,
                 PISTON, STICKY_PISTON, PISTON_HEAD, PISTON_EXTENSION,
-                HOPPER
+                HOPPER, BED
         );
     }
 

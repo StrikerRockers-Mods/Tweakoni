@@ -1,6 +1,8 @@
 package com.srkw.tweakoni.handlers;
 
 import com.srkw.tweakoni.Tweakoni;
+import com.srkw.tweakoni.block.bed.TileEntityBed;
+import com.srkw.tweakoni.block.bed.TileEntityBedRenderer;
 import com.srkw.tweakoni.block.hopper.TileEntityHopper;
 import com.srkw.tweakoni.block.piston.TileEntityPiston;
 import com.srkw.tweakoni.block.piston.TileEntityPistonRenderer;
@@ -35,7 +37,9 @@ public class RegistryHandler {
         GameRegistry.registerTileEntity(TESpawnBlocker.class, "spawnblocker_TE");
         GameRegistry.registerTileEntity(TileEntityPiston.class, "piston_TE");
         GameRegistry.registerTileEntity(TileEntityHopper.class, "hopper_TE");
+        GameRegistry.registerTileEntity(TileEntityBed.class, "bed_TE");
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPiston.class, new TileEntityPistonRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBed.class, new TileEntityBedRenderer());
         NetworkRegistry.INSTANCE.registerGuiHandler(Tweakoni.instance, new GuiHandler());
     }
 
