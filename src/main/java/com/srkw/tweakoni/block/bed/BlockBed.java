@@ -119,7 +119,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
                 if (entityplayer$sleepresult == EntityPlayer.SleepResult.OK)
                 {
                     state = state.withProperty(OCCUPIED, Boolean.valueOf(true));
-                    worldIn.setBlockState(pos, state, 4);
+                    worldIn.setBlockState(pos, state, 10);
                     return true;
                 }
                 else
