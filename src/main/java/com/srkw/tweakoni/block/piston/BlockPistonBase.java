@@ -135,7 +135,8 @@ public class BlockPistonBase extends BlockDirectional {
      * Determines if the block is solid enough on the top side to support other blocks, like redstone components.
      */
     public boolean isTopSolid(IBlockState state) {
-        return !((Boolean) state.getValue(EXTENDED)).booleanValue() || state.getValue(FACING) == EnumFacing.DOWN;
+        //return !((Boolean) state.getValue(EXTENDED)).booleanValue() || state.getValue(FACING) == EnumFacing.DOWN;
+    	return true; //Tweakoni : makes redstone dust placable on it
     }
 
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
