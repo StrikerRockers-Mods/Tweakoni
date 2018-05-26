@@ -34,9 +34,9 @@ public class RegistryHandler {
     public static void initRegistries() {
         MinecraftForge.EVENT_BUS.register(new CommonEvents());
         PacketHandler.registerMessages("tweakoni");
+        GameRegistry.registerTileEntity(TileEntityHopper.class, "hopper_TE");
         GameRegistry.registerTileEntity(TESpawnBlocker.class, "spawnblocker_TE");
         GameRegistry.registerTileEntity(TileEntityPiston.class, "piston_TE");
-        GameRegistry.registerTileEntity(TileEntityHopper.class, "hopper_TE");
         GameRegistry.registerTileEntity(TileEntityBed.class, "bed_TE");
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPiston.class, new TileEntityPistonRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBed.class, new TileEntityBedRenderer());

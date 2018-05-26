@@ -48,7 +48,6 @@ public class BlockHopper extends BlockContainer {
     protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.875D, 1.0D, 1.0D, 1.0D);
     protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.875D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
     protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.125D, 1.0D, 1.0D);
-    public Boolean isNew = false;
 
     public BlockHopper(String name) {
         super(Material.IRON, MapColor.STONE);
@@ -100,7 +99,7 @@ public class BlockHopper extends BlockContainer {
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      */
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityHopper(isNew);
+        return new TileEntityHopper();
     }
 
     /**

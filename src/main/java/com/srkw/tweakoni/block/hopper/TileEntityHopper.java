@@ -41,18 +41,10 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
     private long tickedGameTime;
     private boolean newHopper = false;
 
-    public TileEntityHopper(boolean isNew) {
-        newHopper = isNew;
-    }
-
-
     public static void registerFixesHopper(DataFixer fixer) {
         fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityHopper.class, new String[]{"Items"}));
     }
 
-    /**
-     * Returns false if the specified IInventory contains any items
-     */
     private static boolean isInventoryEmpty(IInventory inventoryIn, EnumFacing side) {
         if (inventoryIn instanceof ISidedInventory) {
             ISidedInventory isidedinventory = (ISidedInventory) inventoryIn;
@@ -76,13 +68,6 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         return true;
     }
 
-    /**
-     * Pull dropped {@link net.minecraft.entity.item.EntityItem EntityItem}s from the world above the hopper and items
-     * from any inventory attached to this hopper into the hopper's inventory.
-     *
-     * @param hopper the hopper in question
-     * @return whether any items were successfully added to the hopper
-     */
     public static boolean pullItems(IHopper hopper) {
         Boolean ret = net.minecraftforge.items.VanillaInventoryCodeHooks.extractHook(hopper);
         if (ret != null) return ret;
@@ -124,10 +109,6 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         return false;
     }
 
-    /**
-     * Pulls from the specified slot in the inventory and places in any available slot in the hopper. Returns true if
-     * the entire stack was moved
-     */
     private static boolean pullItemFromSlot(IHopper hopper, IInventory inventoryIn, int index, EnumFacing direction) {
         ItemStack itemstack = inventoryIn.getStackInSlot(index);
 
@@ -146,10 +127,6 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         return false;
     }
 
-    /**
-     * Attempts to place the passed EntityItem's stack into the inventory using as many slots as possible. Returns false
-     * if the stackSize of the drop was not depleted.
-     */
     public static boolean putDropInInventoryAllSlots(IInventory source, IInventory destination, EntityItem entity) {
         boolean flag = false;
 
@@ -170,9 +147,6 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         }
     }
 
-    /**
-     * Attempts to place the passed stack in the inventory, using as many slots as required. Returns leftover items
-     */
     public static ItemStack putStackInInventoryAllSlots(IInventory source, IInventory destination, ItemStack stack, @Nullable EnumFacing direction) {
         if (destination instanceof ISidedInventory && direction != null) {
             ISidedInventory isidedinventory = (ISidedInventory) destination;
@@ -192,9 +166,6 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         return stack;
     }
 
-    /**
-     * Can this hopper insert the specified item from the specified slot on the specified side?
-     */
     private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
         if (!inventoryIn.isItemValidForSlot(index, stack)) {
             return false;
@@ -203,16 +174,10 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         }
     }
 
-    /**
-     * Can this hopper extract the specified item from the specified slot on the specified side?
-     */
     private static boolean canExtractItemFromSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
         return !(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canExtractItem(index, stack, side);
     }
 
-    /**
-     * Insert the specified stack to the specified inventory and return any leftover items
-     */
     private static ItemStack insertStack(IInventory source, IInventory destination, ItemStack stack, int index, EnumFacing direction) {
         ItemStack itemstack = destination.getStackInSlot(index);
 
@@ -258,9 +223,6 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         return stack;
     }
 
-    /**
-     * Gets the inventory that the provided hopper will transfer items from.
-     */
     public static IInventory getSourceInventory(IHopper hopper) {
         return getInventoryAtPosition(hopper.getWorld(), hopper.getXPos(), hopper.getYPos() + 1.0D, hopper.getZPos());
     }
@@ -269,9 +231,6 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         return worldIn.<EntityItem>getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(p_184292_1_ - 0.5D, p_184292_3_, p_184292_5_ - 0.5D, p_184292_1_ + 0.5D, p_184292_3_ + 1.5D, p_184292_5_ + 0.5D), EntitySelectors.IS_ALIVE);
     }
 
-    /**
-     * Returns the IInventory (if applicable) of the TileEntity at the specified position
-     */
     public static IInventory getInventoryAtPosition(World worldIn, double x, double y, double z) {
         IInventory iinventory = null;
         int i = MathHelper.floor(x);
@@ -352,25 +311,16 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         return compound;
     }
 
-    /**
-     * Returns the number of slots in the inventory.
-     */
     public int getSizeInventory() {
         return this.inventory.size();
     }
 
-    /**
-     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
-     */
     public ItemStack decrStackSize(int index, int count) {
         this.fillWithLoot((EntityPlayer) null);
         ItemStack itemstack = ItemStackHelper.getAndSplit(this.getItems(), index, count);
         return itemstack;
     }
 
-    /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
-     */
     public void setInventorySlotContents(int index, ItemStack stack) {
         this.fillWithLoot((EntityPlayer) null);
         this.getItems().set(index, stack);
@@ -380,23 +330,14 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         }
     }
 
-    /**
-     * Get the name of this object. For players this returns their username
-     */
     public String getName() {
         return this.hasCustomName() ? this.customName : "container.hopper";
     }
 
-    /**
-     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
-     */
     public int getInventoryStackLimit() {
         return 64;
     }
 
-    /**
-     * Like the old updateEntity(), except more generic.
-     */
     public void update() {
         if (this.world != null && !this.world.isRemote) {
             --this.transferCooldown;
@@ -511,9 +452,6 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         }
     }
 
-    /**
-     * Returns false if the inventory has any room to place items in
-     */
     private boolean isInventoryFull(IInventory inventoryIn, EnumFacing side) {
         if (inventoryIn instanceof ISidedInventory) {
             ISidedInventory isidedinventory = (ISidedInventory) inventoryIn;
@@ -545,31 +483,19 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         return new VanillaHopperItemHandler(this);
     }
 
-    /**
-     * Returns the IInventory that this hopper is pointing into
-     */
     private IInventory getInventoryForHopperTransfer() {
         EnumFacing enumfacing = BlockHopper.getFacing(this.getBlockMetadata());
         return getInventoryAtPosition(this.getWorld(), this.getXPos() + (double) enumfacing.getFrontOffsetX(), this.getYPos() + (double) enumfacing.getFrontOffsetY(), this.getZPos() + (double) enumfacing.getFrontOffsetZ());
     }
 
-    /**
-     * Gets the world X position for this hopper entity.
-     */
     public double getXPos() {
         return (double) this.pos.getX() + 0.5D;
     }
 
-    /**
-     * Gets the world Y position for this hopper entity.
-     */
     public double getYPos() {
         return (double) this.pos.getY() + 0.5D;
     }
 
-    /**
-     * Gets the world Z position for this hopper entity.
-     */
     public double getZPos() {
         return (double) this.pos.getZ() + 0.5D;
     }
@@ -627,7 +553,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         world.notifyBlockUpdate(pos, getState(), getState(), 3);
         world.scheduleBlockUpdate(pos, this.getBlockType(), 0, 0);
         markDirty();
-    }
+    } 
 
     public boolean getIsNew() {
 
@@ -639,7 +565,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 
         this.newHopper = isNew;
         markForUpdate();
-
+        
     }
 
 
@@ -648,4 +574,4 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         return "none";
     }
 
-}
+} 
