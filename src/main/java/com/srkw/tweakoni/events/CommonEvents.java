@@ -23,10 +23,12 @@ import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerSetSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 
 import static com.srkw.tweakoni.Tweakoni.MOD_ID;
 
@@ -43,12 +45,12 @@ public class CommonEvents {
 			if(player.isPlayerSleeping()) {
 				if(!(Minecraft.getMinecraft().currentScreen instanceof GuiSleepMP)) {
 					Minecraft.getMinecraft().displayGuiScreen(null);
-					Minecraft.getMinecraft().displayGuiScreen(new GuiSleepMP());	
+					Minecraft.getMinecraft().displayGuiScreen(new com.srkw.tweakoni.block.bed.GuiSleepMP());	
 				}
 			}
 			
 			if(!player.isPlayerSleeping()) {
-				if(Minecraft.getMinecraft().currentScreen instanceof GuiSleepMP) {
+				if(Minecraft.getMinecraft().currentScreen instanceof com.srkw.tweakoni.block.bed.GuiSleepMP) {
 					Minecraft.getMinecraft().displayGuiScreen(null);	
 				}
 			}

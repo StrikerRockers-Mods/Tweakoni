@@ -24,5 +24,6 @@ public class PacketHandler {
     private static void registerMessages() {
         INSTANCE.registerMessage(PacketSendLoc.Handler.class, PacketSendLoc.class, nextID(), SERVER);
         INSTANCE.registerMessage(PacketUpdatePriority.Handler.class, PacketUpdatePriority.class, nextID(), SERVER);
+        INSTANCE.registerMessage(PacketSleepSpawn.Handler.class, PacketSleepSpawn.class, nextID(), SERVER);
     }
 }

@@ -2,36 +2,55 @@ package com.srkw.tweakoni.block.bed;
 
 import java.io.IOException;
 
+import com.srkw.tweakoni.network.PacketHandler;
+import com.srkw.tweakoni.network.PacketSleepSpawn;
+
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.CPacketEntityAction;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiSleepMP extends GuiChat
-{
-    /**
-     * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
-     * window resizes, the buttonList is cleared beforehand.
-     */
+public class GuiSleepMP extends GuiChat {
+	
 	GuiButton removeSpawn;
-	boolean keepSpawn = true;	
+	boolean keepSpawn = true;
+    BlockPos spawnPoint;
 	
     public void initGui()
     {
         super.initGui();
         this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height - 40, I18n.format("multiplayer.stopSleeping")));
         this.buttonList.add(removeSpawn = new GuiButton(2, this.width / 2 - 100, this.height - 60, "Remove Spawn"));
+        spawnPoint = Minecraft.getMinecraft().player.getBedLocation();
+    }
+    
+    @Override
+    public void onGuiClosed()
+    {
+    	if(Minecraft.getMinecraft().world.isDaytime() && !keepSpawn) {
+    		new Thread(new Runnable() {
+    			public void run() {
+    				try {
+						Thread.currentThread().sleep(1000);
+	    	            ((EntityPlayer)Minecraft.getMinecraft().player).setSpawnChunk(spawnPoint, false, Minecraft.getMinecraft().player.dimension);
+	    	            PacketHandler.INSTANCE.sendToServer(new PacketSleepSpawn(spawnPoint, Minecraft.getMinecraft().player.dimension));
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+    				return;
+    			}
+    		}).start();           
+    	}
     }
 
-    /**
-     * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
-     * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
-     */
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
         if (keyCode == 1)
@@ -48,7 +67,7 @@ public class GuiSleepMP extends GuiChat
 
             if (!s.isEmpty())
             {
-                this.sendChatMessage(s); // Forge: fix vanilla not adding messages to the sent list while sleeping
+                this.sendChatMessage(s);
             }
 
             this.inputField.setText("");
@@ -56,9 +75,6 @@ public class GuiSleepMP extends GuiChat
         }
     }
 
-    /**
-     * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
-     */
     protected void actionPerformed(GuiButton button) throws IOException
     {
         if (button.id == 1)
