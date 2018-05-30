@@ -15,6 +15,17 @@ tile.piston_extension.name=Piston Extension
 tile.piston_head=Piston Head
 subtitles.block.piston.move=Piston moves
 
+potion.effect.haste=Haste Potion
+splash_potion.effect.haste=Splash potion of Haste
+tipped_arrow.effect.haste=Arrow of Haste
+lingering_potion.effect.haste=Lingering potion of Haste
+
+potion.effect.strong.haste=Haste Potion II
+splash_potion.effect.strong.haste=Splash potion of Haste II
+tipped_arrow.effect.strong.haste=Arrow of Haste II
+lingering_potion.effect.strong.haste=Lingering potion of Haste II
+
+
 //Carpet
 tile.carpet.white.name=White Carpet
 tile.carpet.orange.name=Orange Carpet

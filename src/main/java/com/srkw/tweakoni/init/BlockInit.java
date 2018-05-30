@@ -40,7 +40,6 @@ public class BlockInit {
         SPAWN_BLOCKER.registerItemModel();
         Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(PISTON), 0, "piston");
         Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(STICKY_PISTON), 0, "sticky_piston");
-        Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(HOPPER), 0, "hopper");
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry) {

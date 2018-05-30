@@ -11,7 +11,15 @@ import com.srkw.tweakoni.init.ItemInit;
 import com.srkw.tweakoni.network.PacketHandler;
 import com.srkw.tweakoni.tileentity.TESpawnBlocker;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionHelper;
+import net.minecraft.potion.PotionType;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -25,7 +33,8 @@ import static com.srkw.tweakoni.init.BlockInit.*;
 
 @EventBusSubscriber
 public class RegistryHandler {
-
+    public static PotionType HASTE = new PotionType("haste", new PotionEffect(MobEffects.HASTE, 400, 0, true, false));
+    public static PotionType STRONG_HASTE = new PotionType("strong.haste", new PotionEffect(MobEffects.HASTE, 400, 1, true, false));
 
     public static void preInitRegistries() {
 
@@ -62,6 +71,18 @@ public class RegistryHandler {
     public static void onModelRegister(ModelRegistryEvent event) {
         ItemInit.registerModels();
         registerModels();
+
     }
 
+    @SubscribeEvent
+    public static void onPotionRegister(RegistryEvent.Register<PotionType> event) {
+        //TODO Fix the color
+        HASTE.setRegistryName("haste");
+        STRONG_HASTE.setRegistryName("strong.haste");
+        event.getRegistry().register(STRONG_HASTE);
+        event.getRegistry().register(HASTE);
+        PotionHelper.addMix(PotionTypes.AWKWARD, Ingredient.fromItem(Item.getItemFromBlock(Blocks.GOLD_BLOCK)), HASTE);
+        PotionHelper.addMix(HASTE, Ingredient.fromItem(Items.GLOWSTONE_DUST), STRONG_HASTE);
+
+    }
 }
