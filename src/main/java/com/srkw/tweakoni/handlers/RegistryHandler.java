@@ -34,8 +34,8 @@ import static com.srkw.tweakoni.init.BlockInit.*;
 @EventBusSubscriber
 public class RegistryHandler {
 
-    private static PotionType HASTE = new PotionType("haste", new PotionEffect(MobEffects.HASTE, 400, 0, true, false));
-    private static PotionType STRONG_HASTE = new PotionType("strong.haste", new PotionEffect(MobEffects.HASTE, 400, 1, true, false));
+    private static PotionType HASTE = new PotionType("haste", new PotionEffect(MobEffects.HASTE, 400, 0, true, true));
+    private static PotionType STRONG_HASTE = new PotionType("strong.haste", new PotionEffect(MobEffects.HASTE, 400, 1, true, true));
 
     public static void preInitRegistries() {
 
