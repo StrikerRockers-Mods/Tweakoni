@@ -9,14 +9,15 @@ import com.srkw.tweakoni.block.piston.TileEntityPistonRenderer;
 import com.srkw.tweakoni.events.CommonEvents;
 import com.srkw.tweakoni.init.ItemInit;
 import com.srkw.tweakoni.network.PacketHandler;
+import com.srkw.tweakoni.potions.PotionHaste;
 import com.srkw.tweakoni.tileentity.TESpawnBlocker;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.potion.PotionType;
@@ -33,8 +34,9 @@ import static com.srkw.tweakoni.init.BlockInit.*;
 
 @EventBusSubscriber
 public class RegistryHandler {
-    public static PotionType HASTE = new PotionType("haste", new PotionEffect(MobEffects.HASTE, 400, 0, true, false));
-    public static PotionType STRONG_HASTE = new PotionType("strong.haste", new PotionEffect(MobEffects.HASTE, 400, 1, true, false));
+    private static PotionHaste HASTE_POTION = new PotionHaste();
+    private static PotionType HASTE = new PotionType("haste", new PotionEffect(HASTE_POTION, 400, 0, true, false));
+    private static PotionType STRONG_HASTE = new PotionType("strong.haste", new PotionEffect(HASTE_POTION, 400, 1, true, false));
 
     public static void preInitRegistries() {
 
@@ -75,7 +77,7 @@ public class RegistryHandler {
     }
 
     @SubscribeEvent
-    public static void onPotionRegister(RegistryEvent.Register<PotionType> event) {
+    public static void onPotionTypeRegister(RegistryEvent.Register<PotionType> event) {
         //TODO Fix the color
         HASTE.setRegistryName("haste");
         STRONG_HASTE.setRegistryName("strong.haste");
@@ -84,5 +86,10 @@ public class RegistryHandler {
         PotionHelper.addMix(PotionTypes.AWKWARD, Ingredient.fromItem(Item.getItemFromBlock(Blocks.GOLD_BLOCK)), HASTE);
         PotionHelper.addMix(HASTE, Ingredient.fromItem(Items.GLOWSTONE_DUST), STRONG_HASTE);
 
+    }
+
+    @SubscribeEvent
+    public static void onPotionRegister(RegistryEvent.Register<Potion> event) {
+        event.getRegistry().register(HASTE_POTION);
     }
 }
