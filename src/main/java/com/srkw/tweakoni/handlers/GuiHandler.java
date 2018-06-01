@@ -1,8 +1,8 @@
 package com.srkw.tweakoni.handlers;
 
-import com.srkw.tweakoni.block.hopper.ContainerHopper;
-import com.srkw.tweakoni.block.hopper.GuiHopper;
-import com.srkw.tweakoni.block.hopper.TileEntityHopper;
+import com.srkw.tweakoni.block.minecraft.hopper.ContainerHopper;
+import com.srkw.tweakoni.block.minecraft.hopper.GuiHopper;
+import com.srkw.tweakoni.block.minecraft.hopper.TileEntityHopper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

@@ -1,14 +1,14 @@
 package com.srkw.tweakoni.init;
 
 import com.srkw.tweakoni.Tweakoni;
-import com.srkw.tweakoni.block.BlockCarpet;
-import com.srkw.tweakoni.block.BlockSea;
 import com.srkw.tweakoni.block.BlockSpawnBlocker;
-import com.srkw.tweakoni.block.bed.BlockBed;
-import com.srkw.tweakoni.block.hopper.BlockHopper;
-import com.srkw.tweakoni.block.piston.BlockPistonBase;
-import com.srkw.tweakoni.block.piston.BlockPistonExtension;
-import com.srkw.tweakoni.block.piston.BlockPistonMoving;
+import com.srkw.tweakoni.block.minecraft.BlockCarpet;
+import com.srkw.tweakoni.block.minecraft.BlockSea;
+import com.srkw.tweakoni.block.minecraft.bed.BlockBed;
+import com.srkw.tweakoni.block.minecraft.hopper.BlockHopper;
+import com.srkw.tweakoni.block.minecraft.piston.BlockPistonBase;
+import com.srkw.tweakoni.block.minecraft.piston.BlockPistonExtension;
+import com.srkw.tweakoni.block.minecraft.piston.BlockPistonMoving;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;

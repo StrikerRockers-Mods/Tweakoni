@@ -1,12 +1,7 @@
 package com.srkw.tweakoni.network;
 
-import com.srkw.tweakoni.block.hopper.TileEntityHopper;
-
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -40,7 +35,7 @@ public class PacketSleepSpawn implements IMessage {
 
 		@Override
 		public IMessage onMessage(PacketSleepSpawn message, MessageContext ctx) {
-			((EntityPlayer)ctx.getServerHandler().player).setSpawnChunk(message.spawnpoint, false, message.dimension);
+            ctx.getServerHandler().player.setSpawnChunk(message.spawnpoint, false, message.dimension);
 			
 			return null;
 		}

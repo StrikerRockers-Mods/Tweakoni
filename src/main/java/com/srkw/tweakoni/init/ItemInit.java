@@ -1,7 +1,6 @@
 package com.srkw.tweakoni.init;
 
-import com.srkw.tweakoni.Tweakoni;
-import com.srkw.tweakoni.block.bed.ItemBed;
+import com.srkw.tweakoni.block.minecraft.bed.ItemBed;
 import com.srkw.tweakoni.item.ItemRotator;
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.IForgeRegistry;

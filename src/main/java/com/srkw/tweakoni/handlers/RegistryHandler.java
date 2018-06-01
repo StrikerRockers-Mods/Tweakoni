@@ -1,11 +1,11 @@
 package com.srkw.tweakoni.handlers;
 
 import com.srkw.tweakoni.Tweakoni;
-import com.srkw.tweakoni.block.bed.TileEntityBed;
-import com.srkw.tweakoni.block.bed.TileEntityBedRenderer;
-import com.srkw.tweakoni.block.hopper.TileEntityHopper;
-import com.srkw.tweakoni.block.piston.TileEntityPiston;
-import com.srkw.tweakoni.block.piston.TileEntityPistonRenderer;
+import com.srkw.tweakoni.block.minecraft.bed.TileEntityBed;
+import com.srkw.tweakoni.block.minecraft.bed.TileEntityBedRenderer;
+import com.srkw.tweakoni.block.minecraft.hopper.TileEntityHopper;
+import com.srkw.tweakoni.block.minecraft.piston.TileEntityPiston;
+import com.srkw.tweakoni.block.minecraft.piston.TileEntityPistonRenderer;
 import com.srkw.tweakoni.events.CommonEvents;
 import com.srkw.tweakoni.init.ItemInit;
 import com.srkw.tweakoni.network.PacketHandler;

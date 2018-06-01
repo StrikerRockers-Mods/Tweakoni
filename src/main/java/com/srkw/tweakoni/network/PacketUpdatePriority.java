@@ -1,11 +1,10 @@
 package com.srkw.tweakoni.network;
 
-import com.srkw.tweakoni.block.hopper.TileEntityHopper;
+import com.srkw.tweakoni.block.minecraft.hopper.TileEntityHopper;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
