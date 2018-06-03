@@ -3,7 +3,7 @@ package com.srkw.tweakoni.init;
 import com.srkw.tweakoni.Tweakoni;
 import com.srkw.tweakoni.block.BlockSpawnBlocker;
 import com.srkw.tweakoni.block.minecraft.BlockCarpet;
-import com.srkw.tweakoni.block.minecraft.BlockSea;
+import com.srkw.tweakoni.block.minecraft.BlockSeaLantern;
 import com.srkw.tweakoni.block.minecraft.bed.BlockBed;
 import com.srkw.tweakoni.block.minecraft.hopper.BlockHopper;
 import com.srkw.tweakoni.block.minecraft.piston.BlockPistonBase;
@@ -17,9 +17,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class BlockInit {
 	
-    public static BlockSea sea_lantern = new BlockSea(Material.GLASS);
-    public static BlockSpawnBlocker SPAWN_BLOCKER = new BlockSpawnBlocker(Material.IRON);
-    public static BlockCarpet CARPET = new BlockCarpet();
+    public static BlockSeaLantern SEA_LANTERN = new BlockSeaLantern("sea_lantern", Material.IRON);
+    public static BlockSpawnBlocker SPAWN_BLOCKER = new BlockSpawnBlocker("blocker", Material.IRON);
+    public static BlockCarpet CARPET = new BlockCarpet("carpet", Material.CLOTH);
 
     public static BlockPistonBase PISTON = new BlockPistonBase(false, "piston");
     public static BlockPistonBase STICKY_PISTON = new BlockPistonBase(true, "sticky_piston");
@@ -30,7 +30,7 @@ public class BlockInit {
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
-                sea_lantern, SPAWN_BLOCKER, CARPET,
+        		SEA_LANTERN, SPAWN_BLOCKER, CARPET,
                 PISTON, STICKY_PISTON, PISTON_HEAD, PISTON_EXTENSION,
                 HOPPER, BED
         );
@@ -40,6 +40,7 @@ public class BlockInit {
         SPAWN_BLOCKER.registerItemModel();
         Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(PISTON), 0, "piston");
         Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(STICKY_PISTON), 0, "sticky_piston");
+        Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(SEA_LANTERN), 0, "sea_lantern");
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry) {

@@ -16,6 +16,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -23,6 +24,8 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings("all")
 @Mod.EventBusSubscriber
@@ -41,9 +44,10 @@ public class ClientEvents {
 
     }
 
+    @SideOnly(value = Side.CLIENT)
     @SubscribeEvent
     public static void GammaSlider(InputEvent.KeyInputEvent event) {
-
+    	
         if (ClientProxy.decrease_gamma.isKeyDown()) {
             mc.gameSettings.setOptionFloatValue(Options.GAMMA, mc.gameSettings.gammaSetting - 0.1F);
         }
@@ -52,11 +56,11 @@ public class ClientEvents {
             mc.gameSettings.setOptionFloatValue(Options.GAMMA, mc.gameSettings.gammaSetting + 0.1F);
         }
 
-        if (mc.gameSettings.gammaSetting > 10F) {
-            mc.gameSettings.setOptionFloatValue(Options.GAMMA, 10F);
+        if (mc.gameSettings.gammaSetting > 5F) {
+            mc.gameSettings.setOptionFloatValue(Options.GAMMA, 5F);
         }
-        if (mc.gameSettings.gammaSetting < -20F) {
-            mc.gameSettings.setOptionFloatValue(Options.GAMMA, -20F);
+        if (mc.gameSettings.gammaSetting < -5F) {
+            mc.gameSettings.setOptionFloatValue(Options.GAMMA, -5F);
         }
 
     }
@@ -68,6 +72,7 @@ public class ClientEvents {
             if (item instanceof ItemBlock && ClientProxy.block_below.isKeyDown()) {
                 RayTraceResult result = RayTrace.rayTrace(event.getWorld(), event.getEntityPlayer(), false);
                 if (result.sideHit == EnumFacing.UP) {
+                	event.getEntityPlayer().swingArm(EnumHand.MAIN_HAND);
                     PacketHandler.INSTANCE.sendToServer(new PacketSendLoc());
                 }
             }

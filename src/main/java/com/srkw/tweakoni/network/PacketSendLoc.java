@@ -3,6 +3,7 @@ package com.srkw.tweakoni.network;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -55,20 +56,16 @@ public class PacketSendLoc implements IMessage {
 
                     Item item = playerEntity.getHeldItem(EnumHand.MAIN_HAND).getItem();
 
-                    SoundType soundtype = world.getBlockState(message.blockPos).getBlock().getSoundType(world.getBlockState(message.blockPos), world, message.blockPos, playerEntity);
-                    world.playSound(message.blockPos.getX(), message.blockPos.getY(), message.blockPos.getZ(), soundtype.getPlaceSound(), SoundCategory.BLOCKS, soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F, true);
-
-                    if (blockBelow != Blocks.AIR && blockBelow != Blocks.WATER && blockBelow != Blocks.LAVA)
-                        playerEntity.swingArm(EnumHand.MAIN_HAND);
-
-
                     if (!playerEntity.isCreative()) {
                         playerEntity.getHeldItem(EnumHand.MAIN_HAND).shrink(1);
                     }
 
                     BlockPos pos = message.blockPos.down();
-                    world.setBlockState(pos, Block.getBlockFromItem(item).getDefaultState());
+                    int meta = playerEntity.getHeldItemMainhand().getMetadata();
+                    world.setBlockState(pos, Block.getBlockFromItem(item).getStateFromMeta(meta));                   
 
+                    SoundType soundtype = world.getBlockState(pos).getBlock().getSoundType(world.getBlockState(pos), world, pos, playerEntity);
+                    world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), soundtype.getPlaceSound(), SoundCategory.BLOCKS, soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F);
 
                 }
             }

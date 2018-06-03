@@ -70,8 +70,11 @@ public class CommonEvents {
 
                 if (itemstack.getItem() == Items.LEAD) {
                     villager.setLeashHolder(player, true);
-                    itemstack.shrink(1);
-                    event.setCanceled(true);
+                    
+                    if(!player.isCreative())
+                    	itemstack.shrink(1);
+                    
+                    event.setCanceled(true);                   
                     return;
                 }
             }

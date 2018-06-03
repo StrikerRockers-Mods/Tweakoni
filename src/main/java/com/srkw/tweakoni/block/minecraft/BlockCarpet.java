@@ -1,6 +1,7 @@
 package com.srkw.tweakoni.block.minecraft;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -24,12 +25,13 @@ public class BlockCarpet extends Block {
     public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
     protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
 
-    public BlockCarpet() {
-        super(Material.CLOTH);
+    public BlockCarpet(String name, Material materialIn) {
+        super(materialIn);
         this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
         this.setCreativeTab(CreativeTabs.DECORATIONS);
-        setRegistryName("minecraft", "carpet");
-        setUnlocalizedName("carpet");
+        setRegistryName("minecraft", name);
+        setUnlocalizedName(name);
+        this.blockSoundType = SoundType.CLOTH;
     }
 
     @Override
@@ -53,12 +55,7 @@ public class BlockCarpet extends Block {
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
-    }
-
-
-    private boolean canBlockStay(World worldIn, BlockPos pos) {
-        return !worldIn.isAirBlock(pos.down());
+        return super.canPlaceBlockAt(worldIn, pos);
     }
 
     @SideOnly(Side.CLIENT)

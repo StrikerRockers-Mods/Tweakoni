@@ -15,15 +15,15 @@ import net.minecraft.world.World;
 
 public class BlockSpawnBlocker extends Block implements ITileEntityProvider {
 
-    public BlockSpawnBlocker(Material materialIn) {
+    public BlockSpawnBlocker(String name, Material materialIn) {
 
         super(materialIn);
         setSoundType(SoundType.METAL);
         setHardness(5.0F);
         setResistance(18000000F);
         setHarvestLevel("pickaxe", 0);
-        setUnlocalizedName("blocker");
-        setRegistryName("blocker");
+        setUnlocalizedName(name);
+        setRegistryName(name);
         setCreativeTab(CreativeTabs.MISC);
 
     }
