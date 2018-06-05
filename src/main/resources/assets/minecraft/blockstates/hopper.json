@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "enabled=true,facing=down": { "model": "hopper_down" },
+        "enabled=true,facing=north": { "model": "hopper_side" },
+        "enabled=true,facing=south": { "model": "hopper_side", "y": 180 },
+        "enabled=true,facing=west": { "model": "hopper_side", "y": 270 },
+        "enabled=true,facing=east": { "model": "hopper_side", "y": 90 }
+    }
+}

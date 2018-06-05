@@ -35,7 +35,9 @@ public class PacketSleepSpawn implements IMessage {
 
 		@Override
 		public IMessage onMessage(PacketSleepSpawn message, MessageContext ctx) {
-            ctx.getServerHandler().player.setSpawnChunk(message.spawnpoint, false, message.dimension);
+			
+			ctx.getServerHandler().player.wakeUpPlayer(true, true, false);
+			ctx.getServerHandler().player.getEntityWorld().setWorldTime(1000);
 			
 			return null;
 		}

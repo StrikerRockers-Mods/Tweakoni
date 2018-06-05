@@ -28,23 +28,13 @@ public class GuiSleepMP extends GuiChat {
         spawnPoint = Minecraft.getMinecraft().player.getBedLocation();
     }
 
-    @Override
-    public void onGuiClosed() {
-        if (Minecraft.getMinecraft().world.isDaytime() && !keepSpawn) {
-            new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        Thread.currentThread().sleep(1000);
-                        Minecraft.getMinecraft().player.setSpawnChunk(spawnPoint, false, Minecraft.getMinecraft().player.dimension);
-                        PacketHandler.INSTANCE.sendToServer(new PacketSleepSpawn(spawnPoint, Minecraft.getMinecraft().player.dimension));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    return;
-                }
-            }).start();
+   @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        if (Minecraft.getMinecraft().player.getSleepTimer() >= 90 && !keepSpawn) {
+           PacketHandler.INSTANCE.sendToServer(new PacketSleepSpawn(spawnPoint, 0));
         }
-    }
+        super.drawScreen(mouseX, mouseY, partialTicks);
+   }
 
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (keyCode == 1) {
