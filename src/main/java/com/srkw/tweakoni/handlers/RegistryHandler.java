@@ -8,6 +8,7 @@ import com.srkw.tweakoni.block.minecraft.piston.TileEntityPiston;
 import com.srkw.tweakoni.block.minecraft.piston.TileEntityPistonRenderer;
 import com.srkw.tweakoni.events.CommonEvents;
 import com.srkw.tweakoni.init.ItemInit;
+import com.srkw.tweakoni.init.PotionInit;
 import com.srkw.tweakoni.network.PacketHandler;
 import com.srkw.tweakoni.tileentity.TESpawnBlocker;
 import net.minecraft.block.Block;
@@ -34,23 +35,13 @@ import static com.srkw.tweakoni.init.BlockInit.*;
 @EventBusSubscriber
 public class RegistryHandler {
 
-    private static PotionType HASTE = new PotionType("haste", new PotionEffect(MobEffects.HASTE, 400, 0, true, true));
-    private static PotionType STRONG_HASTE = new PotionType("strong.haste", new PotionEffect(MobEffects.HASTE, 400, 1, true, true));
-
     public static void preInitRegistries() {
 
     }
 
     public static void initRegistries() {
         MinecraftForge.EVENT_BUS.register(new CommonEvents());
-        PacketHandler.registerMessages("tweakoni");
-        GameRegistry.registerTileEntity(TileEntityHopper.class, "hopper_TE");
-        GameRegistry.registerTileEntity(TESpawnBlocker.class, "spawnblocker_TE");
-        GameRegistry.registerTileEntity(TileEntityPiston.class, "piston_TE");
-        GameRegistry.registerTileEntity(TileEntityBed.class, "bed_TE");
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPiston.class, new TileEntityPistonRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBed.class, new TileEntityBedRenderer());
-        NetworkRegistry.INSTANCE.registerGuiHandler(Tweakoni.instance, new GuiHandler());
+        onObjectRegister();       
     }
 
     public static void postInitRegistries() {
@@ -77,13 +68,19 @@ public class RegistryHandler {
 
     @SubscribeEvent
     public static void onPotionTypeRegister(RegistryEvent.Register<PotionType> event) {
-        //TODO Fix the color
-        HASTE.setRegistryName("haste");
-        STRONG_HASTE.setRegistryName("strong.haste");
-        event.getRegistry().register(STRONG_HASTE);
-        event.getRegistry().register(HASTE);
-        PotionHelper.addMix(PotionTypes.AWKWARD, Ingredient.fromItem(Item.getItemFromBlock(Blocks.GOLD_BLOCK)), HASTE);
-        PotionHelper.addMix(HASTE, Ingredient.fromItem(Items.GLOWSTONE_DUST), STRONG_HASTE);
-
+    	PotionInit.register(event.getRegistry());
     }
+    
+    
+    public static void onObjectRegister() {
+        PacketHandler.registerMessages("tweakoni");
+    	GameRegistry.registerTileEntity(TileEntityHopper.class, "hopper_TE");
+        GameRegistry.registerTileEntity(TESpawnBlocker.class, "spawnblocker_TE");
+        GameRegistry.registerTileEntity(TileEntityPiston.class, "piston_TE");
+        GameRegistry.registerTileEntity(TileEntityBed.class, "bed_TE");
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPiston.class, new TileEntityPistonRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBed.class, new TileEntityBedRenderer());
+        NetworkRegistry.INSTANCE.registerGuiHandler(Tweakoni.instance, new GuiHandler());
+    }
+    
 }

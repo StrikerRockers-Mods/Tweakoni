@@ -4,7 +4,13 @@ import com.srkw.tweakoni.Tweakoni;
 import com.srkw.tweakoni.block.minecraft.bed.ItemBed;
 import com.srkw.tweakoni.block.minecraft.redstone.ItemRedstone;
 import com.srkw.tweakoni.item.ItemRotator;
+import com.srkw.tweakoni.potion.PotionHaste;
+import com.srkw.tweakoni.potion.PotionStrongHaste;
+
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionType;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class ItemInit {
