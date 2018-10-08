@@ -1,7 +1,6 @@
 package com.srkw.tweakoni.block.minecraft.redstone;
 
 import com.srkw.tweakoni.init.BlockInit;
-
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -21,7 +20,7 @@ public class ItemRedstone extends Item {
     {
         this.setCreativeTab(CreativeTabs.REDSTONE);
         setRegistryName("minecraft", name);
-        setUnlocalizedName(name);
+        setTranslationKey(name);
     }
 
     /**

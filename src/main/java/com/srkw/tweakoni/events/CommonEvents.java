@@ -27,30 +27,30 @@ import static com.srkw.tweakoni.Tweakoni.MOD_ID;
 
 @Mod.EventBusSubscriber()
 public class CommonEvents {
-	
-	@SubscribeEvent
-	public static void sleepEvent(LivingEvent.LivingUpdateEvent event) {
-		
-		if(event.getEntityLiving() instanceof EntityPlayer && event.getEntityLiving().getEntityWorld().isRemote) {
-			
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			
-			if(player.isPlayerSleeping()) {
-				if(!(Minecraft.getMinecraft().currentScreen instanceof GuiSleepMP)) {
-					Minecraft.getMinecraft().displayGuiScreen(null);
+
+    @SubscribeEvent
+    public static void sleepEvent(LivingEvent.LivingUpdateEvent event) {
+
+        if (event.getEntityLiving() instanceof EntityPlayer && event.getEntityLiving().getEntityWorld().isRemote) {
+
+            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+
+            if (player.isPlayerSleeping()) {
+                if (!(Minecraft.getMinecraft().currentScreen instanceof GuiSleepMP)) {
+                    Minecraft.getMinecraft().displayGuiScreen(null);
                     Minecraft.getMinecraft().displayGuiScreen(new com.srkw.tweakoni.block.minecraft.bed.GuiSleepMP());
-				}
-			}
-			
-			if(!player.isPlayerSleeping()) {
+                }
+            }
+
+            if (!player.isPlayerSleeping()) {
                 if (Minecraft.getMinecraft().currentScreen instanceof com.srkw.tweakoni.block.minecraft.bed.GuiSleepMP) {
-					Minecraft.getMinecraft().displayGuiScreen(null);	
-				}
-			}
-			
-		}
-		
-	}
+                    Minecraft.getMinecraft().displayGuiScreen(null);
+                }
+            }
+
+        }
+
+    }
 
     @SubscribeEvent
     public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
@@ -70,11 +70,11 @@ public class CommonEvents {
 
                 if (itemstack.getItem() == Items.LEAD) {
                     villager.setLeashHolder(player, true);
-                    
-                    if(!player.isCreative())
-                    	itemstack.shrink(1);
-                    
-                    event.setCanceled(true);                   
+
+                    if (!player.isCreative())
+                        itemstack.shrink(1);
+
+                    event.setCanceled(true);
                     return;
                 }
             }

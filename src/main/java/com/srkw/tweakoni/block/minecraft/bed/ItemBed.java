@@ -9,7 +9,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -25,20 +24,19 @@ public class ItemBed extends Item {
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
         setRegistryName("minecraft", name);
-        setUnlocalizedName(name);
+        setTranslationKey(name);
     }
 
     public void registerItemModel() {
-
         for (int i = 0; i < 16; ++i) {
             Tweakoni.proxy.registerItemRenderer(this, i, "bed");
         }
-
     }
 
     /**
      * Called when a Block is right-clicked with this Item
      */
+    @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return EnumActionResult.SUCCESS;
@@ -54,7 +52,7 @@ public class ItemBed extends Item {
             }
 
             int i = MathHelper.floor((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-            EnumFacing enumfacing = EnumFacing.getHorizontal(i);
+            EnumFacing enumfacing = EnumFacing.byHorizontalIndex(i);
             BlockPos blockpos = pos.offset(enumfacing);
             ItemStack itemstack = player.getHeldItem(hand);
 
@@ -65,12 +63,11 @@ public class ItemBed extends Item {
                 boolean flag3 = flag1 || worldIn.isAirBlock(blockpos);
 
                 if (flag2 && flag3 && worldIn.getBlockState(pos.down()).isTopSolid() && worldIn.getBlockState(blockpos.down()).isTopSolid()) {
-                    IBlockState iblockstate2 = BlockInit.BED.getDefaultState().withProperty(BlockBed.OCCUPIED, Boolean.valueOf(false)).withProperty(BlockBed.FACING, enumfacing).withProperty(BlockBed.PART, BlockBed.EnumPartType.FOOT);
+                    IBlockState iblockstate2 = BlockInit.BED.getDefaultState().withProperty(BlockBed.OCCUPIED, Boolean.FALSE).withProperty(BlockBed.FACING, enumfacing).withProperty(BlockBed.PART, BlockBed.EnumPartType.FOOT);
                     worldIn.setBlockState(pos, iblockstate2, 10);
                     worldIn.setBlockState(blockpos, iblockstate2.withProperty(BlockBed.PART, BlockBed.EnumPartType.HEAD), 10);
                     SoundType soundtype = iblockstate2.getBlock().getSoundType(iblockstate2, worldIn, pos, player);
                     worldIn.playSound(null, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
-
                     TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
                     if (tileentity instanceof TileEntityBed) {
@@ -102,16 +99,9 @@ public class ItemBed extends Item {
     }
 
     /**
-     * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
-     * different names based on their damage or NBT.
-     */
-    public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName() + "." + EnumDyeColor.byMetadata(stack.getMetadata()).getUnlocalizedName();
-    }
-
-    /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */
+    @Override
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (this.isInCreativeTab(tab)) {
             for (int i = 0; i < 16; ++i) {

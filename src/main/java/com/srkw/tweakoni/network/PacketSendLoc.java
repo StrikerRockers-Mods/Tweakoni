@@ -3,7 +3,6 @@ package com.srkw.tweakoni.network;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -24,7 +23,6 @@ public class PacketSendLoc implements IMessage {
     private BlockPos blockPos;
 
     public PacketSendLoc() {
-        //noinspection MethodCallSideOnly
         RayTraceResult mouseOver = getMinecraft().objectMouseOver;
         blockPos = mouseOver.getBlockPos();
     }
@@ -62,7 +60,7 @@ public class PacketSendLoc implements IMessage {
 
                     BlockPos pos = message.blockPos.down();
                     int meta = playerEntity.getHeldItemMainhand().getMetadata();
-                    world.setBlockState(pos, Block.getBlockFromItem(item).getStateFromMeta(meta));                   
+                    world.setBlockState(pos, Block.getBlockFromItem(item).getStateFromMeta(meta));
 
                     SoundType soundtype = world.getBlockState(pos).getBlock().getSoundType(world.getBlockState(pos), world, pos, playerEntity);
                     world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), soundtype.getPlaceSound(), SoundCategory.BLOCKS, soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F);

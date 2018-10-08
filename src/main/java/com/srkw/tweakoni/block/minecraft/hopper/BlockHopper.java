@@ -53,11 +53,11 @@ public class BlockHopper extends BlockContainer {
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, Boolean.valueOf(true)));
         this.setCreativeTab(CreativeTabs.REDSTONE);
         setRegistryName("minecraft", name);
-        setUnlocalizedName(name);
+        setTranslationKey(name);
     }
 
     public static EnumFacing getFacing(int meta) {
-        return EnumFacing.getFront(meta & 7);
+        return EnumFacing.byIndex(meta & 7);
     }
 
     /**

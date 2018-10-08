@@ -17,9 +17,9 @@ import java.io.IOException;
 @SideOnly(Side.CLIENT)
 public class GuiSleepMP extends GuiChat {
 
-    GuiButton removeSpawn;
-    boolean keepSpawn = true;
-    BlockPos spawnPoint;
+    private GuiButton removeSpawn;
+    private boolean keepSpawn = true;
+    private BlockPos spawnPoint;
 
     public void initGui() {
         super.initGui();
@@ -28,13 +28,13 @@ public class GuiSleepMP extends GuiChat {
         spawnPoint = Minecraft.getMinecraft().player.getBedLocation();
     }
 
-   @Override
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         if (Minecraft.getMinecraft().player.getSleepTimer() >= 90 && !keepSpawn) {
-           PacketHandler.INSTANCE.sendToServer(new PacketSleepSpawn(spawnPoint, 0));
+            PacketHandler.INSTANCE.sendToServer(new PacketSleepSpawn(spawnPoint, 0));
         }
         super.drawScreen(mouseX, mouseY, partialTicks);
-   }
+    }
 
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (keyCode == 1) {

@@ -39,7 +39,7 @@ public class BlockPistonMoving extends BlockContainer {
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.PistonType.DEFAULT));
         this.setHardness(-1.0F);
         setRegistryName("minecraft", name);
-        setUnlocalizedName(name);
+        setTranslationKey(name);
     }
 
     public static TileEntity createTilePiston(IBlockState blockStateIn, EnumFacing facingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {

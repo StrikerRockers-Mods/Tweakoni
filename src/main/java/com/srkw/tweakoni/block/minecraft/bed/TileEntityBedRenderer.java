@@ -1,5 +1,6 @@
 package com.srkw.tweakoni.block.minecraft.bed;
 
+import net.minecraft.client.model.ModelBed;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.EnumDyeColor;

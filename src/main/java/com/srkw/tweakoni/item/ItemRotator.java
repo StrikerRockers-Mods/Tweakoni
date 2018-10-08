@@ -1,6 +1,5 @@
 package com.srkw.tweakoni.item;
 
-import com.srkw.tweakoni.Tweakoni;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -17,21 +16,11 @@ import net.minecraft.world.World;
 public class ItemRotator extends Item {
 
     public ItemRotator(String name) {
-
-        super();
         setCreativeTab(CreativeTabs.TOOLS);
         setMaxStackSize(1);
         setMaxDamage(50);
-        setUnlocalizedName(name);
+        setTranslationKey(name);
         setRegistryName(name);
-
-
-    }
-
-    public void registerItemModel() {
-
-        Tweakoni.proxy.registerItemRenderer(this, 0, "rotator");
-
     }
 
     @Override

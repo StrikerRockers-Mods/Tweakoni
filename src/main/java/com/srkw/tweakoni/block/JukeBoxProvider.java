@@ -26,7 +26,6 @@ public class JukeBoxProvider implements ICapabilityProvider {
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing enumFacing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            //noinspection SingleStatementInBlock
             return (T) new JukeBoxHandler(jukebox);
         }
         return null;

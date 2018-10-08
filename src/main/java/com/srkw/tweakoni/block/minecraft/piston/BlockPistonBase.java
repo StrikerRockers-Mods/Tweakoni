@@ -54,13 +54,13 @@ public class BlockPistonBase extends BlockDirectional {
         this.setHardness(0.5F);
         this.setCreativeTab(CreativeTabs.REDSTONE);
         setRegistryName("minecraft", name);
-        setUnlocalizedName(name);
+        setTranslationKey(name);
     }
 
     @Nullable
     public static EnumFacing getFacing(int meta) {
         int i = meta & 7;
-        return i > 5 ? null : EnumFacing.getFront(i);
+        return i > 5 ? null : EnumFacing.byIndex(i);
     }
 
     /**
@@ -80,7 +80,7 @@ public class BlockPistonBase extends BlockDirectional {
                         return false;
                     }
 
-                    switch (blockStateIn.getMobilityFlag()) {
+                    switch (blockStateIn.getPushReaction()) {
                         case BLOCK:
                             return false;
                         case DESTROY:
@@ -90,7 +90,7 @@ public class BlockPistonBase extends BlockDirectional {
                         default:
                             break;
                     }
-                } else if (blockStateIn.getValue(EXTENDED).booleanValue()) {
+                } else if (blockStateIn.getValue(EXTENDED)) {
                     return false;
                 }
 
@@ -104,11 +104,11 @@ public class BlockPistonBase extends BlockDirectional {
     }
 
     public boolean causesSuffocation(IBlockState state) {
-        return !state.getValue(EXTENDED).booleanValue();
+        return !state.getValue(EXTENDED);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        if (state.getValue(EXTENDED).booleanValue()) {
+        if (state.getValue(EXTENDED)) {
             switch (state.getValue(FACING)) {
                 case DOWN:
                     return PISTON_BASE_DOWN_AABB;
@@ -133,7 +133,7 @@ public class BlockPistonBase extends BlockDirectional {
      * Determines if the block is solid enough on the top side to support other blocks, like redstone components.
      */
     public boolean isTopSolid(IBlockState state) {
-        return !((Boolean) state.getValue(EXTENDED)).booleanValue() || state.getValue(FACING) == EnumFacing.DOWN;
+        return !state.getValue(EXTENDED) || state.getValue(FACING) == EnumFacing.DOWN;
     }
 
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
@@ -183,18 +183,18 @@ public class BlockPistonBase extends BlockDirectional {
      * IBlockstate
      */
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(EXTENDED, Boolean.valueOf(false));
+        return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(EXTENDED, Boolean.FALSE);
     }
 
     private void checkForMove(World worldIn, BlockPos pos, IBlockState state) {
         EnumFacing enumfacing = state.getValue(FACING);
         boolean flag = this.shouldBeExtended(worldIn, pos, enumfacing);
 
-        if (flag && !state.getValue(EXTENDED).booleanValue()) {
+        if (flag && !state.getValue(EXTENDED)) {
             if ((new BlockPistonStructureHelper(worldIn, pos, enumfacing, true)).canMove()) {
                 worldIn.addBlockEvent(pos, this, 0, enumfacing.getIndex());
             }
-        } else if (!flag && state.getValue(EXTENDED).booleanValue()) {
+        } else if (!flag && state.getValue(EXTENDED)) {
             worldIn.addBlockEvent(pos, this, 1, enumfacing.getIndex());
         }
     }
@@ -233,7 +233,7 @@ public class BlockPistonBase extends BlockDirectional {
             boolean flag = this.shouldBeExtended(worldIn, pos, enumfacing);
 
             if (flag && id == 1) {
-                worldIn.setBlockState(pos, state.withProperty(EXTENDED, Boolean.valueOf(true)), 2);
+                worldIn.setBlockState(pos, state.withProperty(EXTENDED, Boolean.TRUE), 2);
                 return false;
             }
 
@@ -247,7 +247,7 @@ public class BlockPistonBase extends BlockDirectional {
                 return false;
             }
 
-            worldIn.setBlockState(pos, state.withProperty(EXTENDED, Boolean.valueOf(true)), 3);
+            worldIn.setBlockState(pos, state.withProperty(EXTENDED, Boolean.TRUE), 3);
             worldIn.playSound(null, pos, SoundEvents.BLOCK_PISTON_EXTEND, SoundCategory.BLOCKS, 0.5F, worldIn.rand.nextFloat() * 0.25F + 0.6F);
         } else if (id == 1) {
             TileEntity tileentity1 = worldIn.getTileEntity(pos.offset(enumfacing));
@@ -260,7 +260,7 @@ public class BlockPistonBase extends BlockDirectional {
             worldIn.setTileEntity(pos, BlockPistonMoving.createTilePiston(this.getStateFromMeta(param), enumfacing, false, true));
 
             if (this.isSticky) {
-                BlockPos blockpos = pos.add(enumfacing.getFrontOffsetX() * 2, enumfacing.getFrontOffsetY() * 2, enumfacing.getFrontOffsetZ() * 2);
+                BlockPos blockpos = pos.add(enumfacing.getXOffset() * 2, enumfacing.getYOffset() * 2, enumfacing.getZOffset() * 2);
                 IBlockState iblockstate = worldIn.getBlockState(blockpos);
                 Block block = iblockstate.getBlock();
                 boolean flag1 = false;
@@ -278,7 +278,7 @@ public class BlockPistonBase extends BlockDirectional {
                     }
                 }
 
-                if (!flag1 && !iblockstate.getBlock().isAir(iblockstate, worldIn, blockpos) && canPush(iblockstate, worldIn, blockpos, enumfacing.getOpposite(), false, enumfacing) && (iblockstate.getMobilityFlag() == EnumPushReaction.NORMAL || block == BlockInit.PISTON || block == BlockInit.STICKY_PISTON)) {
+                if (!flag1 && !iblockstate.getBlock().isAir(iblockstate, worldIn, blockpos) && canPush(iblockstate, worldIn, blockpos, enumfacing.getOpposite(), false, enumfacing) && (iblockstate.getPushReaction() == EnumPushReaction.NORMAL || block == BlockInit.PISTON || block == BlockInit.STICKY_PISTON)) {
                     this.doMove(worldIn, pos, enumfacing, false);
                 }
             } else {

@@ -57,13 +57,13 @@ public class BlockPistonExtension extends BlockDirectional {
         this.setSoundType(SoundType.STONE);
         this.setHardness(0.5F);
         setRegistryName("minecraft", name);
-        setUnlocalizedName(name);
+        setTranslationKey(name);
     }
 
     @Nullable
     public static EnumFacing getFacing(int meta) {
         int i = meta & 7;
-        return i > 5 ? null : EnumFacing.getFront(i);
+        return i > 5 ? null : EnumFacing.byIndex(i);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
