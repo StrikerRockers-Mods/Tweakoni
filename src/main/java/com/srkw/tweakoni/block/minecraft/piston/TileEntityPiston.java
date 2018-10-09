@@ -22,6 +22,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.minecraft.block.BlockPistonExtension.EnumPistonType.DEFAULT;
+import static net.minecraft.block.BlockPistonExtension.EnumPistonType.STICKY;
+
 public class TileEntityPiston extends TileEntity implements ITickable {
 
     private static final ThreadLocal<EnumFacing> MOVING_ENTITY = new ThreadLocal<EnumFacing>() {
@@ -42,10 +45,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
      */
     private float lastProgress;
 
-    public TileEntityPiston() {
-    }
-
-    public TileEntityPiston(IBlockState pistonStateIn, EnumFacing pistonFacingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
+    TileEntityPiston(IBlockState pistonStateIn, EnumFacing pistonFacingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
         this.pistonState = pistonStateIn;
         this.pistonFacing = pistonFacingIn;
         this.extending = extendingIn;
@@ -137,7 +137,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
     }
 
     private IBlockState getCollisionRelatedBlockState() {
-        return !this.isExtending() && this.shouldPistonHeadBeRendered() ? BlockInit.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.TYPE, this.pistonState.getBlock() == BlockInit.STICKY_PISTON ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT).withProperty(BlockPistonExtension.FACING, this.pistonState.getValue(BlockPistonBase.FACING)) : this.pistonState;
+        return !this.isExtending() && this.shouldPistonHeadBeRendered() ? BlockInit.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.TYPE, this.pistonState.getBlock() == BlockInit.STICKY_PISTON ? STICKY : DEFAULT).withProperty(BlockPistonExtension.FACING, this.pistonState.getValue(BlockPistonBase.FACING)) : this.pistonState;
     }
 
     private void moveCollidedEntities(float p_184322_1_) {

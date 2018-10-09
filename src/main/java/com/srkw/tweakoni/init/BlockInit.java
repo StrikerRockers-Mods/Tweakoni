@@ -8,7 +8,6 @@ import com.srkw.tweakoni.block.minecraft.hopper.BlockHopper;
 import com.srkw.tweakoni.block.minecraft.piston.BlockPistonBase;
 import com.srkw.tweakoni.block.minecraft.piston.BlockPistonExtension;
 import com.srkw.tweakoni.block.minecraft.piston.BlockPistonMoving;
-import com.srkw.tweakoni.block.minecraft.redstone.BlockRedstoneWire;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -16,7 +15,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class BlockInit {
-	
+
     public static BlockSpawnBlocker SPAWN_BLOCKER = new BlockSpawnBlocker("blocker", Material.IRON);
 
     public static BlockCarpetMod CARPET = new BlockCarpetMod("carpet");
@@ -26,20 +25,20 @@ public class BlockInit {
     public static BlockPistonMoving PISTON_EXTENSION = new BlockPistonMoving("piston_extension");
     public static BlockHopper HOPPER = new BlockHopper("hopper");
     public static BlockBed BED = new BlockBed("bed");
-    public static BlockRedstoneWire REDSTONE_WIRE = new BlockRedstoneWire("redstone_wire", Material.CIRCUITS);
+    //public static BlockRedstoneWire REDSTONE_WIRE = new BlockRedstoneWire("redstone_wire", Material.CIRCUITS);
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
-        		SPAWN_BLOCKER, CARPET,
+                SPAWN_BLOCKER, CARPET,
                 PISTON, STICKY_PISTON, PISTON_HEAD, PISTON_EXTENSION,
-                HOPPER, BED, REDSTONE_WIRE
+                HOPPER, BED//, REDSTONE_WIRE
         );
     }
 
     public static void registerModels() {
         Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(SPAWN_BLOCKER), 0, "blocker");
-        Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(PISTON), 0, "piston");
-        Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(STICKY_PISTON), 0, "sticky_piston");
+        //Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(PISTON), 0, "piston");
+        //Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(STICKY_PISTON), 0, "sticky_piston");
         Tweakoni.proxy.registerItemRenderer(Item.getItemFromBlock(HOPPER), 0, "hopper");
     }
 
