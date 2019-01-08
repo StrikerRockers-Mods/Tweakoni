@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "io.github.strikerrocker.tweakoni.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinLivingEntity",
+    "MixinJukeBoxBlockEntity",
+    "MixinVillagerEntity"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

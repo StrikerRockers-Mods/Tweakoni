@@ -1,0 +1,14 @@
+{
+  "id": "tweakoni",
+  "name": "Tweakoni",
+  "description": "",
+  "version": "1.0.0",
+  "side": "universal",
+  "initializer": "io.github.strikerrocker.tweakoni.Tweakoni",
+  "requires": {
+    "fabric": "*"
+  },
+  "mixins": {
+    "common": "modid.common.json"
+  }
+}
