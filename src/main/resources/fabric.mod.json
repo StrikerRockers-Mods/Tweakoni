@@ -4,11 +4,15 @@
   "description": "",
   "version": "1.0.0",
   "side": "universal",
-  "initializer": "io.github.strikerrocker.tweakoni.Tweakoni",
+  "initializers": [
+    "io.github.strikerrocker.tweakoni.Tweakoni",
+    "io.github.strikerrocker.tweakoni.TweakoniClient"
+  ],
   "requires": {
     "fabric": "*"
   },
   "mixins": {
-    "common": "modid.common.json"
+    "common": "modid.common.json",
+    "client": "modid.client.json"
   }
 }

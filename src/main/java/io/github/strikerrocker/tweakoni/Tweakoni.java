@@ -21,7 +21,6 @@ import net.minecraft.util.registry.Registry;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.logging.Logger;
 
 public class Tweakoni implements ModInitializer {
     public static BlockEntityType BLOCKER;
@@ -48,17 +47,16 @@ public class Tweakoni implements ModInitializer {
                 }
             }
         });
-        HASTE = Registry.register(Registry.POTION, "haste", new Potion("haste", new StatusEffectInstance[]{new StatusEffectInstance(StatusEffects.HASTE, 4000, 0, true, true)}));
-        STRONG_HASTE = Registry.register(Registry.POTION, "strong_haste", new Potion("strong.haste", new StatusEffectInstance[]{new StatusEffectInstance(StatusEffects.HASTE, 4000, 1, true, true)}));
+        HASTE = Registry.register(Registry.POTION, "haste", new Potion("haste", new StatusEffectInstance(StatusEffects.HASTE, 4000, 0, true, true)));
+        STRONG_HASTE = Registry.register(Registry.POTION, "strong_haste", new Potion("strong.haste", new StatusEffectInstance(StatusEffects.HASTE, 4000, 1, true, true)));
         //BLOCKER = Registry.register(Registry.BLOCK_ENTITY, new Identifier("tweakoni", "blocker"), BlockEntityType.Builder.create(BlockerBlockEntity::new).method_11034(null));
         //Registry.register(Registry.BLOCK,new Identifier("tweakoni","blocker"),new SpawnBlockerBlock(FabricBlockSettings.of(Material.EARTH).build()));
         try {
             System.out.println("Registry Replacing Sea lantern");
             setFinalStatic(Blocks.class.getField("SEA_LANTERN"), Registry.register(Registry.BLOCK, new Identifier("minecraft", "sea_lantern"), new Block(FabricBlockSettings.of(Material.EARTH, MaterialColor.QUARTZ).strength(0.3f, 0.3f).sounds(BlockSoundGroup.GLASS).lightLevel(15).build())));
-            setFinalStatic(Items.class.getField("field_8305"),Registry.register(Registry.ITEM,new Identifier("minecraft","sea_lantern"),new BlockItem(Blocks.SEA_LANTERN,new Item.Settings().itemGroup(ItemGroup.BUILDING_BLOCKS))));
+            setFinalStatic(Items.class.getField("field_8305"), Registry.register(Registry.ITEM, new Identifier("minecraft", "sea_lantern"), new BlockItem(Blocks.SEA_LANTERN, new Item.Settings().itemGroup(ItemGroup.BUILDING_BLOCKS))));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
-
