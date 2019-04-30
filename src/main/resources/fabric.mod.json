@@ -1,18 +1,27 @@
 {
+  "schemaVersion": 1,
   "id": "tweakoni",
+  "version": "${version}",
   "name": "Tweakoni",
   "description": "",
-  "version": "1.0.0",
-  "side": "universal",
-  "initializers": [
+  "authors": [
+    "StrikerRocker"
+  ],
+  "contact": {
+    "sources": "https://github.com/StrikerRockers-Mods/Tweakoni"
+  },
+  "environment": "*",
+  "entrypoints": {
+    "main": [
     "io.github.strikerrocker.tweakoni.Tweakoni",
     "io.github.strikerrocker.tweakoni.TweakoniClient"
-  ],
+    ]
+  },
   "requires": {
+    "fabricloader": ">=0.4.0",
     "fabric": "*"
   },
-  "mixins": {
-    "common": "modid.common.json",
-    "client": "modid.client.json"
-  }
+  "mixins": [
+    "modid.common.json"
+  ]
 }

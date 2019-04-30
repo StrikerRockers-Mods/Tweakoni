@@ -14,8 +14,8 @@ public class TweakoniClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         KeyBindingRegistry.INSTANCE.addCategory("category.tweakoni");
-        KeyBindingRegistry.INSTANCE.register(dgamma = FabricKeyBinding.Builder.create(new Identifier("tweakoni", "dgamma"), InputUtil.Type.KEY_KEYBOARD, 333, "category.tweakoni").build());
-        KeyBindingRegistry.INSTANCE.register(igamma = FabricKeyBinding.Builder.create(new Identifier("tweakoni", "igamma"), InputUtil.Type.KEY_KEYBOARD, 334, "category.tweakoni").build());
-        KeyBindingRegistry.INSTANCE.register(bb = FabricKeyBinding.Builder.create(new Identifier("tweakoni", "bb"), InputUtil.Type.KEY_KEYBOARD, 334, "category.tweakoni").build());
+        KeyBindingRegistry.INSTANCE.register(dgamma = FabricKeyBinding.Builder.create(new Identifier("tweakoni", "dgamma"), InputUtil.Type.KEYSYM, 333, "category.tweakoni").build());
+        KeyBindingRegistry.INSTANCE.register(igamma = FabricKeyBinding.Builder.create(new Identifier("tweakoni", "igamma"), InputUtil.Type.KEYSYM, 334, "category.tweakoni").build());
+        KeyBindingRegistry.INSTANCE.register(bb = FabricKeyBinding.Builder.create(new Identifier("tweakoni", "bb"), InputUtil.Type.KEYSYM, 334, "category.tweakoni").build());
     }
 }

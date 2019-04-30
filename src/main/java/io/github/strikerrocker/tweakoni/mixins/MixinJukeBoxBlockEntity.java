@@ -5,9 +5,7 @@ import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.RecordItem;
-import net.minecraft.text.StringTextComponent;
-import net.minecraft.text.TextComponent;
+import net.minecraft.item.MusicDiscItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
@@ -61,13 +59,13 @@ public abstract class MixinJukeBoxBlockEntity implements Inventory {
 
     private void onRemoved() {
         BlockEntity blockEntity = (BlockEntity) (Object) this;
-        blockEntity.getWorld().fireWorldEvent(1010, blockEntity.getPos(), 0);
-        blockEntity.getWorld().playRecord(blockEntity.getPos(), null);
+        ;
+        blockEntity.getWorld().playLevelEvent(1010, blockEntity.getPos(), 0);
     }
 
     @Override
     public void setInvStack(int var1, ItemStack var2) {
-        if (var1 == 0 && var2.getItem() instanceof RecordItem) {
+        if (var1 == 0 && var2.getItem() instanceof MusicDiscItem) {
             setRecord(var2);
             if (var2 == ItemStack.EMPTY) {
                 onRemoved();
@@ -78,10 +76,5 @@ public abstract class MixinJukeBoxBlockEntity implements Inventory {
     @Override
     public boolean canPlayerUseInv(PlayerEntity var1) {
         return false;
-    }
-
-    @Override
-    public TextComponent getName() {
-        return new StringTextComponent("");
     }
 }

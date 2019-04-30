@@ -1,8 +1,6 @@
 package io.github.strikerrocker.tweakoni.mixins;
 
-import io.github.strikerrocker.tweakoni.TweakoniClient;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.options.GameOptions;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -13,7 +11,7 @@ public class MixinMinecraftClient {
 
     @Inject(method = "method_1508", at = @At("HEAD"))
     public void keybindings(CallbackInfo info) {
-        MinecraftClient mc = (MinecraftClient) (Object) this;
+        /*MinecraftClient mc = (MinecraftClient) (Object) this;
         while (TweakoniClient.dgamma.method_1436()) {
             mc.options.method_1625(GameOptions.Option.GAMMA, MinecraftClient.getInstance().options.gamma - 0.1F);
             System.out.println("d gamma");
@@ -27,6 +25,6 @@ public class MixinMinecraftClient {
         }
         if (mc.options.gamma < -5F) {
             mc.options.method_1625(GameOptions.Option.GAMMA, -5F);
-        }
+        }*/
     }
 }

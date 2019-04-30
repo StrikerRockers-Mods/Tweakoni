@@ -7,6 +7,9 @@
     "MixinJukeBoxBlockEntity",
     "MixinVillagerEntity"
   ],
+  "client": [
+    "MixinMinecraftClient"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
